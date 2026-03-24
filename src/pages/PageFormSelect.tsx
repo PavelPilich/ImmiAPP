@@ -11,6 +11,7 @@ export default function PageFormSelect() {
     { k:"simple",  forms:FORMS.filter((f: any) => f.tier === "simple"),  c:S.ok },
     { k:"medium",  forms:FORMS.filter((f: any) => f.tier === "medium"),  c:S.wrn },
     { k:"complex", forms:FORMS.filter((f: any) => f.tier === "complex"), c:S.err },
+    { k:"vcomplex", forms:FORMS.filter((f: any) => f.tier === "vcomplex"), c:"#ff4444" },
   ];
   return (
     <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
@@ -24,7 +25,7 @@ export default function PageFormSelect() {
                 <div style={{ fontWeight:700 }}>{f.name}</div>
                 <div style={{ fontSize:13, color:S.t2 }}>{bt(lang, f.desc)}</div>
               </div>
-              <div style={{ fontWeight:700, color:S.pri }}>{"$"+f.fee}</div>
+              <div style={{ fontWeight:700, color:"#fff" }}>{"$"+f.fee}</div>
             </div>
           ))}
         </div>

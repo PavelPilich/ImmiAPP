@@ -8,7 +8,7 @@ export type PageName =
 
 export type PackageType = "pdf" | "printShip" | "fullSvc" | "express";
 
-export type FormTier = "simple" | "medium" | "complex";
+export type FormTier = "simple" | "medium" | "complex" | "vcomplex";
 
 export type FieldType = "text" | "date" | "tel" | "email" | "select" | "country" | "tps";
 

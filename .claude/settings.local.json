@@ -14,7 +14,16 @@
       "Bash(npm --version)",
       "Bash(export PATH=\"/Users/smartconstructionremodelinginc/.nvm/versions/node/v25.8.1/bin:$PATH\")",
       "Bash(npm install:*)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(npx tsc:*)",
+      "Bash(./node_modules/.bin/tsc --noEmit src/data/translations.ts src/data/forms.ts src/data/civics.ts src/data/notifications.ts)",
+      "Bash(npx vite:*)",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); errors=[x[''''text''''] for x in data if x[''''type'''']==''''stderr'''' and ''''error'''' in x[''''text''''].lower\\(\\)]; [print\\(e[:200]\\) for e in errors[-5:]]\")",
+      "Bash(grep -o \"\"text\"\":\"\"[^\"\"]*error[^\"\"]*\"\" /Users/smartconstructionremodelinginc/.claude/projects/-Users-smartconstructionremodelinginc-Documents-ImmiAPP/fcbc33f2-7cab-41a2-9cb5-6d385fa73fc4/tool-results/mcp-Claude_Preview-preview_logs-1774332119588.txt)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(node -e \"const fs = require\\(''fs''\\); const content = fs.readFileSync\\(''src/data/translations.ts'',''utf8''\\); console.log\\(''Lines:'', content.split\\(''\\\\n''\\).length\\); const match = content.match\\(/\\\\};/g\\); console.log\\(''Closing }; count:'', match ? match.length : 0\\);\")"
     ]
   }
 }
