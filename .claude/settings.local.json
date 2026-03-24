@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(system_profiler SPHardwareDataType)",
+      "Bash(sw_vers)",
+      "Bash(sysctl -n machdep.cpu.brand_string)",
+      "Bash(sysctl -n hw.ncpu)",
+      "Bash(sysctl -n hw.memsize)",
+      "Bash(system_profiler SPDisplaysDataType)",
+      "Bash(system_profiler SPNetworkDataType)",
+      "Bash(find /Users/smartconstructionremodelinginc/Documents/ImmiAPP -type f -not -path */.*)",
+      "Bash(npm create:*)",
+      "Bash(export PATH=\"/usr/local/bin:/opt/homebrew/bin:$HOME/.nvm/versions/node/*/bin:$PATH\")",
+      "Bash(npm --version)",
+      "Bash(export PATH=\"/Users/smartconstructionremodelinginc/.nvm/versions/node/v25.8.1/bin:$PATH\")",
+      "Bash(npm install:*)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}
