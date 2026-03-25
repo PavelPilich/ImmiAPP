@@ -4,9 +4,10 @@ import { S } from "../data/styles";
 import { t, bt } from "../data/translations";
 import Nav from "../components/layout/Nav";
 import { Btn } from "../components/ui/Button";
+import { generateFormPdf } from "../lib/pdfGenerator";
 
 export default function PagePreview() {
-  const { lang, go, selForm, fd } = useContext(AppCtx) as any;
+  const { lang, go, selForm, fd, user, caseRef, pkg } = useContext(AppCtx) as any;
   if (!selForm) return <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
   const f = selForm;
 
@@ -28,8 +29,9 @@ export default function PagePreview() {
       </div>
       <div style={{ display:"flex", gap:12 }}>
         <Btn outline onClick={() => window.print()} style={{ flex:1 }}>{t(lang, "print")}</Btn>
-        <Btn onClick={() => go("pay")} style={{ flex:1 }}>{t(lang, "continueForm")}</Btn>
+        <Btn outline onClick={() => generateFormPdf({ formName: f.name, formId: f.id, caseRef, userName: user?.name || "User", userEmail: user?.email || "", fd, fields: f.fields, sections: f.sections, packageType: pkg })} style={{ flex:1 }}>PDF</Btn>
       </div>
+      <Btn onClick={() => go("pay")} style={{ marginTop: 8 }}>{t(lang, "continueForm")}</Btn>
     </div>
   );
 }

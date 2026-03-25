@@ -7,11 +7,12 @@ import { FORMS } from "../data/forms";
 
 export default function PageFormSelect() {
   const { lang, go, setSelForm } = useContext(AppCtx) as any;
+  const sortByPrice = (a: any, b: any) => a.fee - b.fee;
   const tiers = [
-    { k:"simple",  forms:FORMS.filter((f: any) => f.tier === "simple"),  c:S.ok },
-    { k:"medium",  forms:FORMS.filter((f: any) => f.tier === "medium"),  c:S.wrn },
-    { k:"complex", forms:FORMS.filter((f: any) => f.tier === "complex"), c:S.err },
-    { k:"vcomplex", forms:FORMS.filter((f: any) => f.tier === "vcomplex"), c:"#ff4444" },
+    { k:"simple",  forms:FORMS.filter((f: any) => f.tier === "simple").sort(sortByPrice),  c:S.ok },
+    { k:"medium",  forms:FORMS.filter((f: any) => f.tier === "medium").sort(sortByPrice),  c:S.wrn },
+    { k:"complex", forms:FORMS.filter((f: any) => f.tier === "complex").sort(sortByPrice), c:S.err },
+    { k:"vcomplex", forms:FORMS.filter((f: any) => f.tier === "vcomplex").sort(sortByPrice), c:"#c084fc" },
   ];
   return (
     <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>

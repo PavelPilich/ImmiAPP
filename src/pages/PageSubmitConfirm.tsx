@@ -18,7 +18,7 @@ export default function PageSubmitConfirm() {
       <h2 style={{ fontSize:20, marginBottom:12, lineHeight:1.4 }}>We Will Now Submit Your<br /><strong style={{ color:S.pri }}>{f.name}</strong> Application to USCIS</h2>
 
       <div style={{ ...S.crd, padding:20, textAlign:"left", cursor:"default" }}>
-        {[["Form", f.name], ["Delivery Plan", planLabel], ["USCIS Fee ($"+f.uscis+")", "✓ Paid"], ["Confirmation #", uscisConf]].map(([lbl, val]: any, i: number) => (
+        {[["Form", f.name], ["Delivery Plan", planLabel], ["USCIS Fee ($"+Number(f.uscis).toFixed(2)+")", "✓ Paid"], ["Confirmation #", uscisConf]].map(([lbl, val]: any, i: number) => (
           <div key={i} style={{ display:"flex", justifyContent:"space-between", marginBottom: i<3?10:0 }}>
             <span style={{ color:S.t2, fontSize:14 }}>{lbl}</span>
             <span style={{ fontWeight:700, fontSize:14, color: i===1?S.pri : i===2?S.ok : "#fff", letterSpacing: i===3?1:0 }}>{val}</span>

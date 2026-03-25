@@ -1175,7 +1175,7 @@ function PageWhatsNext() {
     <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
       <Nav title="What Happens Next" backTo="paymentOptions" />
       {renderPlanInfo()}
-      <UscisWarning fee={f.uscis} large />
+      <UscisWarning fee={f.uscis} formId={f.id} large />
 
       {/* USCIS confirmation gate */}
       <div style={{ background:"rgba(239,68,68,.1)", border:"2px solid #ef4444", borderRadius:16, padding:20, marginBottom:12 }}>

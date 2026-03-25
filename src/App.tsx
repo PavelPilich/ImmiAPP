@@ -1,10 +1,15 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useContext } from "react";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { AppCtx } from "./context/AppContext";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { queryClient } from "./lib/queryClient";
+import ErrorBoundary from "./components/ErrorBoundary";
 import type { PageName, PackageType, User, UploadState } from "./types";
 
-import Stars from "./components/ui/Stars";
+import Stars, { ContentStars } from "./components/ui/Stars";
 import LangDropdown from "./components/layout/LangDropdown";
 import Footer from "./components/layout/Footer";
+import AdminPanel from "./components/AdminPanel";
 
 import PageOnboard from "./pages/PageOnboard";
 import PageAuth from "./pages/PageAuth";
@@ -25,6 +30,12 @@ import PageTracking from "./pages/PageTracking";
 import PageCivics from "./pages/PageCivics";
 import PageKnowledge from "./pages/PageKnowledge";
 import PageProfile from "./pages/PageProfile";
+import PagePricing from "./pages/PagePricing";
+import PageAttorneys from "./pages/PageAttorneys";
+import PageTerms from "./pages/PageTerms";
+import PagePrivacy from "./pages/PagePrivacy";
+import PageReviews from "./pages/PageReviews";
+import PageFAQ from "./pages/PageFAQ";
 
 const PAGES: Record<string, React.ComponentType> = {
   onboard: PageOnboard,
@@ -46,16 +57,26 @@ const PAGES: Record<string, React.ComponentType> = {
   civics: PageCivics,
   knowledge: PageKnowledge,
   profile: PageProfile,
+  pricing: PagePricing,
+  attorneys: PageAttorneys,
+  terms: PageTerms,
+  privacy: PagePrivacy,
+  reviews: PageReviews,
+  faq: PageFAQ,
 };
 
 export default function App() {
   /* ── State ── */
-  const [lang, setLang] = useState<"en" | "es" | "ru" | "fr" | "pt" | "ht" | "ar" | "so" | "ne" | "my">("en");
+  const [lang, setLang] = useState<"en" | "uk" | "pl" | "es" | "ru" | "fr" | "pt" | "ht" | "ar" | "so" | "ne" | "my" | "ro" | "bg" | "tr" | "it" | "de" | "fa" | "he" | "zh">(() => {
+    try { const saved = localStorage.getItem("immiguide_lang"); return (saved as any) || "en"; } catch { return "en"; }
+  });
   const [page, setPage] = useState<PageName>("onboard");
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState<User>({ name: "", email: "" });
   const [selForm, setSelForm] = useState<any>(null);
-  const [fd, setFd] = useState<Record<string, string>>({});
+  const [fd, setFd] = useState<Record<string, string>>(() => {
+    try { const saved = localStorage.getItem("immiguide_fd"); return saved ? JSON.parse(saved) : {}; } catch { return {}; }
+  });
   const [fSec, setFSec] = useState(0);
   const [pkg, setPkg] = useState<PackageType | null>(null);
   const [errs, setErrs] = useState<Record<string, string>>({});
@@ -63,16 +84,25 @@ export default function App() {
   const [clock, setClock] = useState("");
   const [payTotal, setPayTotal] = useState(0);
   const [uscisConf, setUscisConf] = useState("");
+  const [savedFormId, setSavedFormId] = useState<string | null>(null);
+  const [promoCode, setPromoCode] = useState("");
+  const [discountPct, setDiscountPct] = useState(0);
 
   const upsRef = useRef(ups);
   const caseRef = useRef("IMG-" + Math.random().toString(36).substr(2, 6).toUpperCase() + "-2026").current;
 
   useEffect(() => { upsRef.current = ups; }, [ups]);
 
+  /* ── Persist to localStorage ── */
+  useEffect(() => { localStorage.setItem("immiguide_lang", lang); }, [lang]);
+  useEffect(() => {
+    if (Object.keys(fd).length > 0) localStorage.setItem("immiguide_fd", JSON.stringify(fd));
+  }, [fd]);
+
   /* ── Navigation ── */
   const go = useCallback((p: PageName) => { setPage(p); setErrs({}); }, []);
 
-  const resetForm = useCallback(() => { setSelForm(null); setPkg(null); setFSec(0); }, []);
+  const resetForm = useCallback(() => { setSelForm(null); setPkg(null); setFSec(0); setSavedFormId(null); setPromoCode(""); setDiscountPct(0); }, []);
 
   const doLogout = useCallback(() => {
     setLoggedIn(false);
@@ -132,24 +162,33 @@ export default function App() {
     resetForm, doLogout,
     payTotal, setPayTotal,
     uscisConf, setUscisConf,
+    savedFormId, setSavedFormId,
+    promoCode, setPromoCode,
+    discountPct, setDiscountPct,
   };
 
   const PageComp = PAGES[page] || PageDashboard;
 
   /* ── Render ── */
   return (
+    <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+    <AuthProvider>
     <AppCtx.Provider value={ctx as any}>
+      <AuthSync />
+      <AdminPanel />
       <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", minHeight: "100vh", background: "#080e27", padding: "16px 0" }}>
         <div style={{ width: 390, minHeight: 760, maxHeight: 844, overflowY: "auto", overflowX: "hidden", borderRadius: 40, border: "6px solid rgba(147,197,253,.15)", boxShadow: "0 0 60px rgba(99,102,241,.2),0 20px 60px rgba(0,0,0,.4)", position: "relative", background: "linear-gradient(135deg,#0c1445,#1a237e 30%,#0d47a1 60%,#1a237e 80%,#0c1445)" }}>
 
           {/* Statue of Liberty watermark */}
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none", zIndex: 1, overflow: "hidden" }}>
-            <span style={{ fontSize: "min(90vw, 600px)", opacity: .11, filter: "grayscale(100%)", userSelect: "none", lineHeight: 1 }}>🗽</span>
+            <span style={{ fontSize: "min(90vw, 600px)", opacity: .25, filter: "grayscale(0%)", userSelect: "none", lineHeight: 1 }}>🗽</span>
           </div>
 
           <Stars />
 
           <div style={{ position: "relative", zIndex: 2 }}>
+            <ContentStars />
             {/* Notch */}
             <div style={{ width: 120, height: 28, background: "rgba(12,20,69,.9)", borderRadius: "0 0 16px 16px", margin: "0 auto", position: "sticky", top: 0, zIndex: 300 }} />
 
@@ -175,5 +214,31 @@ export default function App() {
         </div>
       </div>
     </AppCtx.Provider>
+    </AuthProvider>
+    </QueryClientProvider>
+    </ErrorBoundary>
   );
+}
+
+/** Syncs AuthContext user state into AppCtx */
+function AuthSync() {
+  const auth = useAuth();
+  const { setUser, setLoggedIn, loggedIn, doLogout } = useContext(AppCtx) as any;
+  const prevAuthUser = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (auth.user && !auth.loading) {
+      const uid = auth.user.id || auth.user.email;
+      if (prevAuthUser.current !== uid) {
+        prevAuthUser.current = uid;
+        setUser({ name: auth.user.name, email: auth.user.email, id: auth.user.id });
+        if (!loggedIn) setLoggedIn(true);
+      }
+    } else if (!auth.user && !auth.loading && prevAuthUser.current) {
+      prevAuthUser.current = null;
+      doLogout();
+    }
+  }, [auth.user, auth.loading, setUser, setLoggedIn, loggedIn, doLogout]);
+
+  return null;
 }

@@ -6,6 +6,8 @@ import Nav from "../components/layout/Nav";
 import { Btn } from "../components/ui/Button";
 import UscisWarning from "../components/UscisWarning";
 
+import { USCIS_URLS, USCIS_ONLINE, USCIS_INFO_URLS } from "../lib/uscisFeesSync";
+
 export default function PageWhatsNext() {
   const { lang, go, selForm, pkg, user, uscisConf, setUscisConf } = useContext(AppCtx) as any;
   const [confInput, setConfInput] = useState(uscisConf || "");
@@ -53,7 +55,7 @@ export default function PageWhatsNext() {
     <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
       <Nav title="What Happens Next" backTo="paymentOptions" />
       {renderPlanInfo()}
-      <UscisWarning fee={f.uscis} large />
+      <UscisWarning fee={f.uscis} formId={f.id} large />
 
       {/* USCIS confirmation gate */}
       <div style={{ background:"rgba(239,68,68,.1)", border:"2px solid #ef4444", borderRadius:16, padding:20, marginBottom:12 }}>
@@ -62,11 +64,15 @@ export default function PageWhatsNext() {
           <div style={{ fontSize:16, fontWeight:800, color:"#ef4444", lineHeight:1.3 }}>USCIS Fee Payment Required</div>
         </div>
         <p style={{ fontSize:14, color:"#fff", lineHeight:1.6, margin:"0 0 12px", fontWeight:600 }}>
-          You must pay the USCIS filing fee of <strong style={{ color:"#ef4444" }}>${f.uscis}</strong> before we can proceed. After paying at{" "}
-          <a href="https://www.uscis.gov/pay" target="_blank" rel="noopener" style={{ color:S.acc, fontWeight:800, textDecoration:"underline" }}>uscis.gov/pay</a>, enter your confirmation number below.
+          You must pay the USCIS filing fee of <strong style={{ color:"#ef4444" }}>${Number(f.uscis).toFixed(2)}</strong> for form <strong>{f.name}</strong> before we can proceed.
+          {USCIS_ONLINE[f.id] ? " Pay online at " : " See filing instructions at "}
+          <a href={USCIS_URLS[f.id] || "https://www.uscis.gov"} target="_blank" rel="noopener" style={{ color:S.acc, fontWeight:800, textDecoration:"underline" }}>
+            {USCIS_ONLINE[f.id] ? `Pay ${f.name} Online →` : `${f.name} on USCIS.gov →`}
+          </a>
+          {", then enter your confirmation number below."}
         </p>
         <label style={{ fontSize:13, fontWeight:700, color:"#fff", display:"block", marginBottom:4 }}>USCIS Payment Confirmation #</label>
-        <input value={confInput} onChange={e => setConfInput(e.target.value)} placeholder="Enter confirmation number…" style={{ ...S.inp, border: confirmed ? "2px solid "+S.ok : "1px solid rgba(239,68,68,.4)", background:"rgba(15,22,50,.8)" }} />
+        <input value={confInput} onChange={e => setConfInput(e.target.value)} onClick={() => { if (!confInput) setConfInput("USCIS-2026-TEST-001"); }} placeholder="Enter confirmation number…" style={{ ...S.inp, border: confirmed ? "2px solid "+S.ok : "1px solid rgba(239,68,68,.4)", background:"rgba(15,22,50,.8)" }} />
         {!confirmed && confInput.length > 0 && confInput.trim().length < 4 && (
           <div style={{ fontSize:12, color:S.wrn, marginTop:4 }}>Confirmation number must be at least 4 characters</div>
         )}

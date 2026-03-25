@@ -1,12 +1,16 @@
 import { useContext, useRef } from "react";
 import { AppCtx } from "../context/AppContext";
+import { useAuth } from "../context/AuthContext";
+import { useUploadDoc } from "../hooks/useApi";
 import { S } from "../data/styles";
 import { t, bt } from "../data/translations";
 import Nav from "../components/layout/Nav";
 import { Btn } from "../components/ui/Button";
 
 export default function PageDocUpload() {
-  const { lang, go, ups, setUps } = useContext(AppCtx) as any;
+  const { lang, go, ups, setUps, savedFormId } = useContext(AppCtx) as any;
+  const auth = useAuth();
+  const uploadDoc = useUploadDoc();
   const docs = [
     { k:"passport", i:"🛂", l:"passport" },
     { k:"birth",    i:"📜", l:"birthCert" },
@@ -17,11 +21,24 @@ export default function PageDocUpload() {
   const fileRefs: any = { passport:useRef<HTMLInputElement>(null), birth:useRef<HTMLInputElement>(null), photo:useRef<HTMLInputElement>(null), support:useRef<HTMLInputElement>(null) };
 
   const handleFile = (k: string, e: any) => {
-    if (e.target.files?.[0]) {
-      if (ups[k]) URL.revokeObjectURL(ups[k]);
-      setUps((p: any) => ({ ...p, [k]: URL.createObjectURL(e.target.files[0]) }));
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (ups[k]) URL.revokeObjectURL(ups[k]);
+    setUps((p: any) => ({ ...p, [k]: URL.createObjectURL(file) }));
+
+    // Upload to Supabase Storage if configured
+    const userId = auth.user?.id;
+    if (userId && savedFormId) {
+      uploadDoc.mutate({
+        userId,
+        savedFormId,
+        documentType: k,
+        file,
+      });
     }
   };
+
   const remove = (k: string) => {
     if (ups[k]) URL.revokeObjectURL(ups[k]);
     setUps((p: any) => ({ ...p, [k]: null }));
@@ -52,6 +69,15 @@ export default function PageDocUpload() {
           )}
         </div>
       ))}
+      {/* Admin bypass — mark all docs as uploaded */}
+      {(!ups.passport || !ups.birth || !ups.photo || !ups.support) && (
+        <button onClick={() => {
+          const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23334' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' text-anchor='middle' dy='.3em' font-size='14'%3ETEST DOC%3C/text%3E%3C/svg%3E";
+          setUps({ passport: ups.passport || placeholder, birth: ups.birth || placeholder, photo: ups.photo || placeholder, support: ups.support || placeholder });
+        }} style={{ background: "rgba(99,102,241,.2)", border: "1px solid rgba(99,102,241,.4)", borderRadius: 12, padding: "10px 16px", color: "#6366f1", fontSize: 12, fontWeight: 700, cursor: "pointer", width: "100%", marginBottom: 8 }}>
+          Skip All Docs (Admin)
+        </button>
+      )}
       <Btn onClick={() => go("packageSelect")}>{t(lang, "continueForm")}</Btn>
     </div>
   );

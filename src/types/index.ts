@@ -1,10 +1,11 @@
-export type LangCode = "en" | "es" | "ru" | "fr" | "pt" | "ht" | "ar" | "so" | "ne" | "my" | "uk" | "pl";
+export type LangCode = "en" | "es" | "ru" | "fr" | "pt" | "ht" | "ar" | "so" | "ne" | "my" | "uk" | "pl" | "ro" | "bg" | "tr" | "it" | "de" | "fa" | "he" | "zh";
 
 export type PageName =
   | "onboard" | "auth" | "dashboard" | "wizard" | "formSelect" | "formDetail"
   | "formFill" | "docUpload" | "packageSelect" | "preview" | "pay"
   | "paymentOptions" | "whatsNext" | "submitConfirm" | "done" | "tracking"
-  | "civics" | "knowledge" | "profile";
+  | "civics" | "knowledge" | "profile" | "pricing" | "attorneys"
+  | "terms" | "privacy" | "reviews" | "faq";
 
 export type PackageType = "pdf" | "printShip" | "fullSvc" | "express";
 
@@ -49,6 +50,7 @@ export interface Notification {
 export interface User {
   name: string;
   email: string;
+  id?: string;
 }
 
 export interface UploadState {
@@ -97,4 +99,10 @@ export interface AppContextType {
   setPayTotal: (n: number) => void;
   uscisConf: string;
   setUscisConf: (s: string) => void;
+  savedFormId: string | null;
+  setSavedFormId: (id: string | null) => void;
+  promoCode: string;
+  setPromoCode: (s: string) => void;
+  discountPct: number;
+  setDiscountPct: (n: number) => void;
 }

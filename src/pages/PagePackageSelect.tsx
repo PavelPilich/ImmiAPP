@@ -24,7 +24,7 @@ export default function PagePackageSelect() {
         <div style={{ fontSize:13, color:S.t2 }}>Service Fee: ${selForm.fee}</div>
       </div>
       {options.map(d => (
-        <div key={d.k} onClick={() => setPkg(d.k)} style={{ ...S.crd, border: pkg===d.k ? "2px solid "+S.pri : "1px solid "+S.bdr, padding:16 }}>
+        <div key={d.k} onClick={() => setPkg(d.k)} style={{ ...S.crd, border: pkg===d.k ? "2px solid "+S.priBtn : "1px solid "+S.bdr, padding:16 }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
             <div style={{ display:"flex", gap:12, alignItems:"center", flex:1 }}>
               <span style={{ fontSize:24 }}>{d.i}</span>
