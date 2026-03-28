@@ -1263,7 +1263,7 @@ function PageDone() {
   const { lang, go, caseRef } = useContext(AppCtx);
   return (
     <div style={{ ...S.page, textAlign:"center", paddingTop:40 }} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
-      <Nav title={t(lang, "complete")} backTo="submitConfirm" />
+      <Nav title={t(lang, "complete")} backTo="dashboard" />
       <div style={{ fontSize:80, marginBottom:8 }}>🎉🎊✨</div>
       <h1 style={{ fontSize:26, marginBottom:8 }}>{t(lang, "complete")}</h1>
       <p style={{ color:S.t2, marginBottom:20 }}>{lang === "ru" ? "Спасибо что выбрали ИммиГид!" : "Thank you for choosing ImmIGuide!"}</p>
@@ -1516,8 +1516,12 @@ export default function App() {
 
   useEffect(() => { upsRef.current = ups; }, [ups]);
 
-  /* ── Navigation ── */
-  const go = useCallback((p) => { setPage(p); setErrs({}); }, []);
+  /* ── Navigation (with auth guard) ── */
+  const go = useCallback((p) => {
+    const publicPages = ["onboard", "auth"];
+    if (!publicPages.includes(p) && !loggedIn) { setPage("auth"); return; }
+    setPage(p); setErrs({});
+  }, [loggedIn]);
 
   const resetForm = useCallback(() => { setSelForm(null); setPkg(null); setFSec(0); }, []);
 
