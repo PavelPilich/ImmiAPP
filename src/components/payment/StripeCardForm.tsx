@@ -315,15 +315,114 @@ export default function StripeCardForm({
     );
   }
 
-  // Mock mode — no Stripe configured, render CardForm without Elements wrapper
-  // CardForm handles the mock fallback internally
+  // Mock mode — no Stripe configured, render MockCardForm (no Stripe hooks)
   return (
-    <CardForm
+    <MockCardForm
       amount={amount}
       onSuccess={onSuccess}
-      onError={onError}
-      lang={lang}
-      clientSecret={null}
     />
+  );
+}
+
+/**
+ * MockCardForm — used when Stripe is NOT configured.
+ * Does NOT use useStripe/useElements (which require <Elements> provider).
+ */
+function MockCardForm({
+  amount,
+  onSuccess,
+}: {
+  amount: number;
+  onSuccess: (paymentIntentId?: string) => void;
+}) {
+  const [processing, setProcessing] = useState(false);
+
+  const handleSubmit = async () => {
+    if (processing) return;
+    setProcessing(true);
+    await new Promise((r) => setTimeout(r, 2000));
+    setProcessing(false);
+    onSuccess();
+  };
+
+  return (
+    <>
+      <div
+        style={{
+          background: "rgba(251,191,36,.12)",
+          border: "1px solid rgba(251,191,36,.4)",
+          borderRadius: 10,
+          padding: 10,
+          marginTop: 8,
+          marginBottom: 4,
+          textAlign: "center",
+        }}
+      >
+        <div style={{ fontSize: 11, color: S.wrn, fontWeight: 700 }}>
+          DEV MODE — Set VITE_STRIPE_PUBLISHABLE_KEY for real payments
+        </div>
+      </div>
+
+      <div
+        style={{
+          ...S.crd,
+          padding: 20,
+          marginTop: 4,
+          cursor: "default",
+          background: "rgba(99,102,241,.08)",
+          border: "1px solid rgba(99,102,241,.3)",
+        }}
+      >
+        <label
+          style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: "#fff",
+            display: "block",
+            marginBottom: 8,
+          }}
+        >
+          Card Details
+        </label>
+        <div
+          style={{
+            padding: "12px 16px",
+            borderRadius: 10,
+            border: "1px solid rgba(147,197,253,.15)",
+            background: "rgba(15,22,50,.6)",
+            color: "rgba(255,255,255,.4)",
+            fontSize: 14,
+          }}
+        >
+          Mock card input (demo mode)
+        </div>
+      </div>
+
+      <button
+        disabled={processing}
+        onClick={handleSubmit}
+        style={{
+          ...S.btn,
+          opacity: processing ? 0.5 : 1,
+          marginTop: 12,
+        }}
+      >
+        {processing
+          ? "Processing..."
+          : `Submit Payment — $${amount.toFixed(2)}`}
+      </button>
+
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: 12,
+          fontSize: 12,
+          color: S.t2,
+          fontWeight: 600,
+        }}
+      >
+        Secure payment powered by Stripe
+      </div>
+    </>
   );
 }

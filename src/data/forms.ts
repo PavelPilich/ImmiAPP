@@ -33,7 +33,7 @@ export const OPTIONAL_FIELDS: string[] = ["ssn","aNumber","i94","address","middl
 export const FORMS: USCISForm[] = [
   // ═══ EXISTING FORMS (EXPANDED) ═══
 
-  { id:"i821", name:"I-821", desc:"goalTPS", tier:"complex", fee:217.99, uscis:510, sections:5, fieldCount:25, time:"6-12", fields:[
+  { id:"i821", name:"I-821", desc:"goalTPS", tier:"complex", fee:205.99, uscis:510, sections:5, fieldCount:25, time:"6-12", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"otherNames",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"cityOfBirth",t:"text"},
     {s:1,k:"aNumber",t:"text"},{s:1,k:"ssn",t:"text"},{s:1,k:"passportNum",t:"text"},{s:1,k:"passportExp",t:"date"},{s:1,k:"currentStatus",t:"text"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"entryDate",t:"date"},{s:2,k:"i94",t:"text"},{s:2,k:"tpsCountry",t:"tps"},
@@ -41,27 +41,27 @@ export const FORMS: USCISForm[] = [
     {s:4,k:"employerName",t:"text"},{s:4,k:"criminalHistory",t:"select",opts:["no","yes"]},{s:4,k:"travelHistory",t:"text"}
   ]},
 
-  { id:"daca", name:"DACA", desc:"goalDACA", tier:"medium", fee:113.99, uscis:85, sections:4, fieldCount:20, time:"4-8", fields:[
+  { id:"daca", name:"DACA", desc:"goalDACA", tier:"medium", fee:106.99, uscis:85, sections:4, fieldCount:20, time:"4-8", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"otherNames",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},
     {s:1,k:"aNumber",t:"text"},{s:1,k:"ssn",t:"text"},{s:1,k:"passportNum",t:"text"},{s:1,k:"currentStatus",t:"text"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"entryDate",t:"date"},{s:2,k:"continuousResidence",t:"text"},
     {s:3,k:"motherName",t:"text"},{s:3,k:"fatherName",t:"text"},{s:3,k:"schoolHistory",t:"text"},{s:3,k:"employerName",t:"text"},{s:3,k:"criminalHistory",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i765", name:"I-765", desc:"goalEAD", tier:"medium", fee:151.99, uscis:520, sections:3, fieldCount:18, time:"3-6", fields:[
+  { id:"i765", name:"I-765", desc:"goalEAD", tier:"medium", fee:142.99, uscis:520, sections:3, fieldCount:18, time:"3-6", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"otherNames",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},
     {s:1,k:"aNumber",t:"text"},{s:1,k:"ssn",t:"text"},{s:1,k:"passportNum",t:"text"},{s:1,k:"currentStatus",t:"text"},{s:1,k:"eligCategory",t:"text"},{s:1,k:"priorEAD",t:"text"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"employerName",t:"text"},{s:2,k:"jobTitle",t:"text"},{s:2,k:"criminalHistory",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i130", name:"I-130", desc:"goalFamily", tier:"vcomplex", fee:436.99, uscis:675, sections:4, fieldCount:25, time:"12-24", fields:[
+  { id:"i130", name:"I-130", desc:"goalFamily", tier:"vcomplex", fee:412.99, uscis:675, sections:4, fieldCount:25, time:"12-24", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"ssn",t:"text"},
     {s:1,k:"petitionerName",t:"text"},{s:1,k:"petitionerCitizenship",t:"text"},{s:1,k:"relationship",t:"select",opts:["spouse","parent","child","sibling"]},{s:1,k:"marriageDate",t:"date"},{s:1,k:"marriageCity",t:"text"},
     {s:2,k:"passportNum",t:"text"},{s:2,k:"passportExp",t:"date"},{s:2,k:"beneficiaryStatus",t:"text"},{s:2,k:"spouseName",t:"text"},{s:2,k:"spouseDob",t:"date"},{s:2,k:"childrenNames",t:"text"},
     {s:3,k:"address",t:"text"},{s:3,k:"phone",t:"tel"},{s:3,k:"email",t:"email"},{s:3,k:"employerName",t:"text"},{s:3,k:"annualIncome",t:"text"},{s:3,k:"residenceHistory",t:"text"},{s:3,k:"priorMarriages",t:"text"},{s:3,k:"criminalHistory",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"n400", name:"N-400", desc:"goalCitizen", tier:"complex", fee:217.99, uscis:760, sections:5, fieldCount:35, time:"8-14", fields:[
+  { id:"n400", name:"N-400", desc:"goalCitizen", tier:"complex", fee:205.99, uscis:760, sections:5, fieldCount:35, time:"8-14", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"otherNames",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"cityOfBirth",t:"text"},
     {s:1,k:"aNumber",t:"text"},{s:1,k:"ssn",t:"text"},{s:1,k:"passportNum",t:"text"},{s:1,k:"passportExp",t:"date"},{s:1,k:"currentStatus",t:"text"},{s:1,k:"yearsResident",t:"text"},{s:1,k:"entryDate",t:"date"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"residenceHistory",t:"text"},{s:2,k:"employmentHistory",t:"text"},{s:2,k:"educationHistory",t:"text"},
@@ -69,7 +69,7 @@ export const FORMS: USCISForm[] = [
     {s:4,k:"tripsOutsideUS",t:"text"},{s:4,k:"militaryService",t:"select",opts:["no","yes"]},{s:4,k:"criminalHistory",t:"select",opts:["no","yes"]},{s:4,k:"taxRecords",t:"select",opts:["no","yes"]},{s:4,k:"gender",t:"select",opts:["male","female"]},{s:4,k:"heightFt",t:"text"},{s:4,k:"heightIn",t:"text"},{s:4,k:"eyeColor",t:"text"},{s:4,k:"hairColor",t:"text"}
   ]},
 
-  { id:"i485", name:"I-485", desc:"goalGreen", tier:"vcomplex", fee:502.99, uscis:1440, sections:5, fieldCount:30, time:"12-36", fields:[
+  { id:"i485", name:"I-485", desc:"goalGreen", tier:"vcomplex", fee:475.99, uscis:1440, sections:5, fieldCount:30, time:"12-36", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"otherNames",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"cityOfBirth",t:"text"},
     {s:1,k:"aNumber",t:"text"},{s:1,k:"ssn",t:"text"},{s:1,k:"passportNum",t:"text"},{s:1,k:"passportExp",t:"date"},{s:1,k:"currentStatus",t:"text"},{s:1,k:"eligCategory",t:"text"},{s:1,k:"entryDate",t:"date"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"residenceHistory",t:"text"},{s:2,k:"employmentHistory",t:"text"},
@@ -77,13 +77,13 @@ export const FORMS: USCISForm[] = [
     {s:4,k:"heightFt",t:"text"},{s:4,k:"eyeColor",t:"text"},{s:4,k:"hairColor",t:"text"},{s:4,k:"criminalHistory",t:"select",opts:["no","yes"]},{s:4,k:"immigrationViolations",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i131", name:"I-131", desc:"goalTravel", tier:"complex", fee:217.99, uscis:630, sections:3, fieldCount:18, time:"3-6", fields:[
+  { id:"i131", name:"I-131", desc:"goalTravel", tier:"complex", fee:205.99, uscis:630, sections:3, fieldCount:18, time:"3-6", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"aNumber",t:"text"},
     {s:1,k:"passportNum",t:"text"},{s:1,k:"passportExp",t:"date"},{s:1,k:"currentStatus",t:"text"},{s:1,k:"travelPurpose",t:"text"},{s:1,k:"destinations",t:"text"},{s:1,k:"departureDate",t:"date"},{s:1,k:"returnDate",t:"date"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"employerName",t:"text"},{s:2,k:"priorTravelDocs",t:"text"}
   ]},
 
-  { id:"i589", name:"I-589", desc:"goalAsylum", tier:"vcomplex", fee:375.99, uscis:100, sections:4, fieldCount:25, time:"6-24", fields:[
+  { id:"i589", name:"I-589", desc:"goalAsylum", tier:"vcomplex", fee:354.99, uscis:100, sections:4, fieldCount:25, time:"6-24", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"otherNames",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"cityOfBirth",t:"text"},
     {s:1,k:"passportNum",t:"text"},{s:1,k:"currentStatus",t:"text"},{s:1,k:"entryDate",t:"date"},{s:1,k:"i94",t:"text"},{s:1,k:"address",t:"text"},{s:1,k:"phone",t:"tel"},{s:1,k:"email",t:"email"},
     {s:2,k:"persecutionCountry",t:"country"},{s:2,k:"persecutionBasis",t:"select",opts:["race","religion","nationality","politicalOpinion","socialGroup"]},{s:2,k:"persecutionNarrative",t:"text"},{s:2,k:"persecutorNames",t:"text"},{s:2,k:"fearOfReturn",t:"text"},
@@ -92,61 +92,61 @@ export const FORMS: USCISForm[] = [
 
   // ═══ NEW FORMS ═══
 
-  { id:"i539", name:"I-539", desc:"goalVisitor", tier:"complex", fee:217.99, uscis:470, sections:3, fieldCount:15, time:"3-6", fields:[
+  { id:"i539", name:"I-539", desc:"goalVisitor", tier:"complex", fee:205.99, uscis:470, sections:3, fieldCount:15, time:"3-6", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"passportNum",t:"text"},
     {s:1,k:"currentStatus",t:"text"},{s:1,k:"i94",t:"text"},{s:1,k:"entryDate",t:"date"},{s:1,k:"statusExpDate",t:"date"},{s:1,k:"extensionReason",t:"text"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"departurePlan",t:"text"}
   ]},
 
-  { id:"i129f", name:"I-129F", desc:"goalFiance", tier:"vcomplex", fee:436.99, uscis:675, sections:4, fieldCount:20, time:"6-12", fields:[
+  { id:"i129f", name:"I-129F", desc:"goalFiance", tier:"vcomplex", fee:412.99, uscis:675, sections:4, fieldCount:20, time:"6-12", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"ssn",t:"text"},{s:0,k:"address",t:"text"},
     {s:1,k:"petitionerCitizenship",t:"text"},{s:1,k:"maritalStatus",t:"select",opts:["single","divorced","widowed"]},{s:1,k:"priorMarriages",t:"text"},
     {s:2,k:"beneficiaryFirstName",t:"text"},{s:2,k:"beneficiaryLastName",t:"text"},{s:2,k:"beneficiaryDob",t:"date"},{s:2,k:"beneficiaryCountry",t:"country"},{s:2,k:"beneficiaryAddress",t:"text"},{s:2,k:"beneficiaryPassport",t:"text"},
     {s:3,k:"howMet",t:"text"},{s:3,k:"metInPerson",t:"select",opts:["yes","no"]},{s:3,k:"meetingDates",t:"text"},{s:3,k:"weddingPlan",t:"text"},{s:3,k:"criminalHistory",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i90", name:"I-90", desc:"goalRenewGC", tier:"complex", fee:217.99, uscis:465, sections:2, fieldCount:12, time:"6-12", fields:[
+  { id:"i90", name:"I-90", desc:"goalRenewGC", tier:"complex", fee:205.99, uscis:465, sections:2, fieldCount:12, time:"6-12", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"aNumber",t:"text"},
     {s:1,k:"gcCardNumber",t:"text"},{s:1,k:"cardExpDate",t:"date"},{s:1,k:"replaceReason",t:"select",opts:["expired","lost","stolen","damaged","nameChange","other"]},{s:1,k:"address",t:"text"},{s:1,k:"phone",t:"tel"},{s:1,k:"email",t:"email"}
   ]},
 
-  { id:"i751", name:"I-751", desc:"goalRemoveConditions", tier:"complex", fee:274.99, uscis:750, sections:3, fieldCount:15, time:"12-24", fields:[
+  { id:"i751", name:"I-751", desc:"goalRemoveConditions", tier:"complex", fee:259.99, uscis:750, sections:3, fieldCount:15, time:"12-24", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"aNumber",t:"text"},{s:0,k:"ssn",t:"text"},
     {s:1,k:"marriageDate",t:"date"},{s:1,k:"marriageCity",t:"text"},{s:1,k:"spouseName",t:"text"},{s:1,k:"spouseDob",t:"date"},{s:1,k:"address",t:"text"},
     {s:2,k:"jointAccounts",t:"select",opts:["yes","no"]},{s:2,k:"sharedProperty",t:"select",opts:["yes","no"]},{s:2,k:"childrenNames",t:"text"},{s:2,k:"criminalHistory",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i864", name:"I-864", desc:"goalAffidavit", tier:"medium", fee:142.99, uscis:0, sections:3, fieldCount:18, time:"0-1", fields:[
+  { id:"i864", name:"I-864", desc:"goalAffidavit", tier:"medium", fee:134.99, uscis:0, sections:3, fieldCount:18, time:"0-1", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"ssn",t:"text"},{s:0,k:"address",t:"text"},
     {s:1,k:"employerName",t:"text"},{s:1,k:"jobTitle",t:"text"},{s:1,k:"annualIncome",t:"text"},{s:1,k:"incomeYear1",t:"text"},{s:1,k:"incomeYear2",t:"text"},{s:1,k:"incomeYear3",t:"text"},
     {s:2,k:"householdSize",t:"text"},{s:2,k:"dependentNames",t:"text"},{s:2,k:"assets",t:"text"},{s:2,k:"relationship",t:"text"},{s:2,k:"petitionerCitizenship",t:"text"},{s:2,k:"phone",t:"tel"}
   ]},
 
-  { id:"i129", name:"I-129", desc:"goalWorker", tier:"vcomplex", fee:375.99, uscis:780, sections:4, fieldCount:22, time:"3-6", fields:[
+  { id:"i129", name:"I-129", desc:"goalWorker", tier:"vcomplex", fee:354.99, uscis:780, sections:4, fieldCount:22, time:"3-6", fields:[
     {s:0,k:"companyName",t:"text"},{s:0,k:"companyAddress",t:"text"},{s:0,k:"ein",t:"text"},{s:0,k:"phone",t:"tel"},{s:0,k:"email",t:"email"},
     {s:1,k:"firstName",t:"text"},{s:1,k:"middleName",t:"text"},{s:1,k:"lastName",t:"text"},{s:1,k:"dob",t:"date"},{s:1,k:"country",t:"country"},{s:1,k:"passportNum",t:"text"},
     {s:2,k:"positionTitle",t:"text"},{s:2,k:"jobTitle",t:"text"},{s:2,k:"wageOffered",t:"text"},{s:2,k:"startDate",t:"date"},{s:2,k:"endDate",t:"date"},{s:2,k:"workAddress",t:"text"},
     {s:3,k:"educationHistory",t:"text"},{s:3,k:"employmentHistory",t:"text"},{s:3,k:"visaCategory",t:"select",opts:["H-1B","L-1","O-1","P-1","TN","E-1","E-2"]},{s:3,k:"currentStatus",t:"text"},{s:3,k:"criminalHistory",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i140", name:"I-140", desc:"goalEmployerGC", tier:"vcomplex", fee:375.99, uscis:715, sections:4, fieldCount:20, time:"6-12", fields:[
+  { id:"i140", name:"I-140", desc:"goalEmployerGC", tier:"vcomplex", fee:354.99, uscis:715, sections:4, fieldCount:20, time:"6-12", fields:[
     {s:0,k:"companyName",t:"text"},{s:0,k:"companyAddress",t:"text"},{s:0,k:"ein",t:"text"},{s:0,k:"annualIncome",t:"text"},{s:0,k:"employeeCount",t:"text"},
     {s:1,k:"firstName",t:"text"},{s:1,k:"middleName",t:"text"},{s:1,k:"lastName",t:"text"},{s:1,k:"dob",t:"date"},{s:1,k:"country",t:"country"},{s:1,k:"passportNum",t:"text"},
     {s:2,k:"positionTitle",t:"text"},{s:2,k:"wageOffered",t:"text"},{s:2,k:"eligCategory",t:"select",opts:["EB-1A","EB-1B","EB-1C","EB-2","EB-3","EB-4","EB-5"]},{s:2,k:"educationHistory",t:"text"},
     {s:3,k:"employmentHistory",t:"text"},{s:3,k:"address",t:"text"},{s:3,k:"phone",t:"tel"},{s:3,k:"email",t:"email"},{s:3,k:"criminalHistory",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i693", name:"I-693", desc:"goalMedical", tier:"medium", fee:142.99, uscis:0, sections:2, fieldCount:10, time:"0-1", fields:[
+  { id:"i693", name:"I-693", desc:"goalMedical", tier:"medium", fee:134.99, uscis:0, sections:2, fieldCount:10, time:"0-1", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"aNumber",t:"text"},{s:0,k:"address",t:"text"},
     {s:1,k:"doctorName",t:"text"},{s:1,k:"doctorAddress",t:"text"},{s:1,k:"vaccinations",t:"text"},{s:1,k:"examDate",t:"date"}
   ]},
 
-  { id:"i912", name:"I-912", desc:"goalFeeWaiver", tier:"simple", fee:95.99, uscis:0, sections:2, fieldCount:12, time:"1-2", fields:[
+  { id:"i912", name:"I-912", desc:"goalFeeWaiver", tier:"simple", fee:89.99, uscis:0, sections:2, fieldCount:12, time:"1-2", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"aNumber",t:"text"},{s:0,k:"address",t:"text"},
     {s:1,k:"annualIncome",t:"text"},{s:1,k:"householdSize",t:"text"},{s:1,k:"benefitType",t:"select",opts:["medicaid","snap","ssi","tanf","other"]},{s:1,k:"employerName",t:"text"},{s:1,k:"phone",t:"tel"},{s:1,k:"email",t:"email"}
   ]},
 
-  { id:"i601", name:"I-601", desc:"goalWaiver", tier:"vcomplex", fee:375.99, uscis:930, sections:3, fieldCount:15, time:"6-12", fields:[
+  { id:"i601", name:"I-601", desc:"goalWaiver", tier:"vcomplex", fee:354.99, uscis:930, sections:3, fieldCount:15, time:"6-12", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"country",t:"country"},{s:0,k:"aNumber",t:"text"},
     {s:1,k:"basisOfClaim",t:"text"},{s:1,k:"extremeHardship",t:"text"},{s:1,k:"qualifyingRelative",t:"text"},{s:1,k:"relationshipToApplicant",t:"text"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"employerName",t:"text"},{s:2,k:"criminalHistory",t:"select",opts:["no","yes"]}
@@ -154,34 +154,34 @@ export const FORMS: USCISForm[] = [
 
   // ═══ NEW FORMS (6 added March 2026) ═══
 
-  { id:"i601a", name:"I-601A", desc:"goalProvisionalWaiver", tier:"vcomplex", fee:375.99, uscis:630, sections:4, fieldCount:20, time:"6-18", fields:[
+  { id:"i601a", name:"I-601A", desc:"goalProvisionalWaiver", tier:"vcomplex", fee:354.99, uscis:630, sections:4, fieldCount:20, time:"6-18", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"countryOfBirth",t:"country"},{s:0,k:"aNumber",t:"text"},
     {s:1,k:"ssn",t:"text"},{s:1,k:"passportNumber",t:"text"},{s:1,k:"immigrationStatus",t:"text"},{s:1,k:"lastEntryDate",t:"date"},{s:1,k:"portOfEntry",t:"text"},
     {s:2,k:"qualifyingRelative",t:"text"},{s:2,k:"relationshipToApplicant",t:"text"},{s:2,k:"extremeHardship",t:"text"},{s:2,k:"priorApplications",t:"select",opts:["no","yes"]},
     {s:3,k:"address",t:"text"},{s:3,k:"phone",t:"tel"},{s:3,k:"email",t:"email"},{s:3,k:"criminalHistory",t:"select",opts:["no","yes"]},{s:3,k:"immigrationViolations",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i360", name:"I-360", desc:"goalSpecialImmigrant", tier:"vcomplex", fee:375.99, uscis:515, sections:4, fieldCount:22, time:"6-24", fields:[
+  { id:"i360", name:"I-360", desc:"goalSpecialImmigrant", tier:"vcomplex", fee:354.99, uscis:515, sections:4, fieldCount:22, time:"6-24", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"countryOfBirth",t:"country"},{s:0,k:"gender",t:"select",opts:["male","female"]},
     {s:1,k:"aNumber",t:"text"},{s:1,k:"ssn",t:"text"},{s:1,k:"immigrationStatus",t:"text"},{s:1,k:"lastEntryDate",t:"date"},{s:1,k:"petitionCategory",t:"select",opts:["vawa_spouse","vawa_child","vawa_parent","religious_worker","special_immigrant_juvenile","other"]},
     {s:2,k:"basisOfClaim",t:"text"},{s:2,k:"narrative",t:"text"},{s:2,k:"evidenceDescription",t:"text"},{s:2,k:"qualifyingRelative",t:"text"},{s:2,k:"maritalStatus",t:"select",opts:["single","married","divorced","widowed","separated"]},
     {s:3,k:"address",t:"text"},{s:3,k:"phone",t:"tel"},{s:3,k:"email",t:"email"},{s:3,k:"employerName",t:"text"},{s:3,k:"criminalHistory",t:"select",opts:["no","yes"]},{s:3,k:"priorApplications",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"i918", name:"I-918", desc:"goalUVisa", tier:"vcomplex", fee:375.99, uscis:0, sections:4, fieldCount:22, time:"12-48", fields:[
+  { id:"i918", name:"I-918", desc:"goalUVisa", tier:"vcomplex", fee:354.99, uscis:0, sections:4, fieldCount:22, time:"12-48", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"countryOfBirth",t:"country"},{s:0,k:"gender",t:"select",opts:["male","female"]},
     {s:1,k:"aNumber",t:"text"},{s:1,k:"ssn",t:"text"},{s:1,k:"immigrationStatus",t:"text"},{s:1,k:"lastEntryDate",t:"date"},{s:1,k:"crimeType",t:"text"},{s:1,k:"crimeDate",t:"date"},
     {s:2,k:"narrative",t:"text"},{s:2,k:"lawEnforcementCert",t:"text"},{s:2,k:"physicalHarm",t:"text"},{s:2,k:"cooperationWithLE",t:"text"},
     {s:3,k:"address",t:"text"},{s:3,k:"phone",t:"tel"},{s:3,k:"email",t:"email"},{s:3,k:"familyMembers",t:"text"},{s:3,k:"criminalHistory",t:"select",opts:["no","yes"]},{s:3,k:"priorApplications",t:"select",opts:["no","yes"]}
   ]},
 
-  { id:"n600", name:"N-600", desc:"goalCertCitizenship", tier:"complex", fee:274.99, uscis:1385, sections:3, fieldCount:18, time:"6-14", fields:[
+  { id:"n600", name:"N-600", desc:"goalCertCitizenship", tier:"complex", fee:259.99, uscis:1385, sections:3, fieldCount:18, time:"6-14", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"countryOfBirth",t:"country"},{s:0,k:"cityOfBirth",t:"text"},
     {s:1,k:"aNumber",t:"text"},{s:1,k:"ssn",t:"text"},{s:1,k:"parentCitizenName",t:"text"},{s:1,k:"parentCitizenDob",t:"date"},{s:1,k:"parentCitizenshipBasis",t:"select",opts:["birth","naturalization","derivation"]},{s:1,k:"parentMarriageDate",t:"date"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"maritalStatus",t:"select",opts:["single","married","divorced","widowed"]},{s:2,k:"lastEntryDate",t:"date"},{s:2,k:"immigrationStatus",t:"text"}
   ]},
 
-  { id:"n565", name:"N-565", desc:"goalReplaceCitDoc", tier:"medium", fee:174.99, uscis:555, sections:2, fieldCount:14, time:"6-12", fields:[
+  { id:"n565", name:"N-565", desc:"goalReplaceCitDoc", tier:"medium", fee:169.99, uscis:555, sections:2, fieldCount:14, time:"6-12", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"countryOfBirth",t:"country"},{s:0,k:"aNumber",t:"text"},{s:0,k:"ssn",t:"text"},
     {s:1,k:"replaceReason",t:"select",opts:["lost","stolen","damaged","name_change","error_on_document"]},{s:1,k:"originalDocType",t:"select",opts:["naturalization_certificate","citizenship_certificate","declaration_of_intention"]},{s:1,k:"originalDocDate",t:"date"},{s:1,k:"address",t:"text"},{s:1,k:"phone",t:"tel"},{s:1,k:"email",t:"email"},{s:1,k:"courtName",t:"text"}
   ]},

@@ -25,6 +25,21 @@ const ATTORNEY_FEES: Record<string, { low: number; high: number }> = {
   i693:  { low: 100, high: 300 },
   i912:  { low: 100, high: 300 },
   i601:  { low: 2000, high: 5000 },
+  i601a: { low: 2000, high: 5000 },
+  i360:  { low: 1500, high: 4000 },
+  i918:  { low: 2000, high: 6000 },
+  n600:  { low: 500, high: 1500 },
+  n565:  { low: 300, high: 800 },
+  ar11:  { low: 50, high: 200 },
+  i907:  { low: 150, high: 500 },
+  i829:  { low: 3000, high: 8000 },
+  i290b: { low: 1500, high: 5000 },
+  i730:  { low: 800, high: 2500 },
+  i914:  { low: 2000, high: 6000 },
+  n336:  { low: 1000, high: 3000 },
+  i212:  { low: 2000, high: 6000 },
+  i134:  { low: 100, high: 400 },
+  i824:  { low: 500, high: 1500 },
 };
 
 /* Competitor service fees (SimpleCitizen, FileRight, etc.) */

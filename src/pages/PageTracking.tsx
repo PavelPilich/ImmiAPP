@@ -84,7 +84,7 @@ export default function PageTracking() {
         <div key={i} style={{ display:"flex", gap:14, alignItems:"flex-start" }}>
           <div style={{ display:"flex", flexDirection:"column", alignItems:"center" }}>
             <div style={{ width:42, height:42, borderRadius:21, background:colors[x.s], display:"flex", alignItems:"center", justifyContent:"center", fontSize:x.s==="done"?18:14, fontWeight:700, color:x.s==="waiting"?"#555":"#fff", border:x.s==="pending"?"2px solid "+S.wrn:"none" }}>{icons[x.s]}</div>
-            {i < 4 && <div style={{ width:2, height:32, background:i<1?S.ok:S.bdr, margin:"2px 0" }} />}
+            {i < steps.length - 1 && <div style={{ width:2, height:32, background:x.s==="done"?S.ok:S.bdr, margin:"2px 0" }} />}
           </div>
           <div style={{ paddingBottom:12 }}>
             <div style={{ fontWeight:700, fontSize:14, color:x.s==="waiting"?S.t2:"#fff" }}>{x.l}</div>
