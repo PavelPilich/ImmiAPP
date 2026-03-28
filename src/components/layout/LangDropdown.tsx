@@ -11,7 +11,6 @@ function LangDropdown({ compact }: LangDropdownProps) {
   const { lang, setLang } = useContext(AppCtx)!;
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
   const cur = LANGS.find(x => x.code === lang);
 
   const enter = () => { if (closeTimer.current) clearTimeout(closeTimer.current); setOpen(true); };

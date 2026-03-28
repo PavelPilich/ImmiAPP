@@ -112,6 +112,41 @@ export function useDeleteUpload() {
   })
 }
 
+// ── Form Submission ──
+
+export function useSubmitForm() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (params: {
+      savedFormId: string
+      submissionMethod: 'mail' | 'digital'
+      trackingNumber: string
+      digitalDataPackage?: Record<string, any> | null
+    }) => api.submitForm(params),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['savedForms'] })
+    },
+  })
+}
+
+export function usePendingSubmissions() {
+  return useQuery({
+    queryKey: ['pendingSubmissions'],
+    queryFn: () => api.getPendingSubmissions(),
+  })
+}
+
+export function useMarkTeamNotified() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (formId: string) => api.markTeamNotified(formId),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['pendingSubmissions'] })
+      qc.invalidateQueries({ queryKey: ['savedForms'] })
+    },
+  })
+}
+
 // ── Payments ──
 
 export function usePayments(userId: string | undefined) {

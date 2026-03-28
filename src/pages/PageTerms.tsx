@@ -24,7 +24,7 @@ export default function PageTerms() {
 
   return (
     <div style={S.page} dir={isRTL ? "rtl" : "ltr"}>
-      <Nav title="Terms of Service" backTo="onboard" />
+      <Nav title="Terms of Service" backTo="auth" />
 
       <div style={{ textAlign: "center", marginBottom: 16 }}>
         <div style={{ fontSize: 13, color: S.t2 }}>Last Updated: March 2026</div>

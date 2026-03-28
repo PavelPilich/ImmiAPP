@@ -2,7 +2,7 @@ export type LangCode = "en" | "es" | "ru" | "fr" | "pt" | "ht" | "ar" | "so" | "
 
 export type PageName =
   | "onboard" | "auth" | "dashboard" | "wizard" | "formSelect" | "formDetail"
-  | "formFill" | "docUpload" | "packageSelect" | "preview" | "pay"
+  | "formFill" | "docUpload" | "preview" | "pay"
   | "paymentOptions" | "whatsNext" | "submitConfirm" | "done" | "tracking"
   | "civics" | "knowledge" | "profile" | "pricing" | "attorneys"
   | "terms" | "privacy" | "reviews" | "faq";

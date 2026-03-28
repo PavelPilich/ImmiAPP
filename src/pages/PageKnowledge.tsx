@@ -7,7 +7,7 @@ import Nav from "../components/layout/Nav";
 export default function PageKnowledge() {
   const { lang } = useContext(AppCtx) as any;
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "knowledgeBase")} backTo="dashboard" />
       <div style={S.crd}>
         <h3>🇺🇸 {t(lang, "appName")}</h3>

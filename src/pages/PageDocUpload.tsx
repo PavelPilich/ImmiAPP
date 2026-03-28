@@ -45,7 +45,7 @@ export default function PageDocUpload() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "docUpload")} backTo="formFill" />
       {docs.map(d => (
         <div key={d.k} style={{ ...S.crd, padding:16 }}>
@@ -69,8 +69,8 @@ export default function PageDocUpload() {
           )}
         </div>
       ))}
-      {/* Admin bypass — mark all docs as uploaded */}
-      {(!ups.passport || !ups.birth || !ups.photo || !ups.support) && (
+      {/* Admin bypass — mark all docs as uploaded (DEV only) */}
+      {import.meta.env.DEV && (!ups.passport || !ups.birth || !ups.photo || !ups.support) && (
         <button onClick={() => {
           const placeholder = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23334' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' fill='%23999' text-anchor='middle' dy='.3em' font-size='14'%3ETEST DOC%3C/text%3E%3C/svg%3E";
           setUps({ passport: ups.passport || placeholder, birth: ups.birth || placeholder, photo: ups.photo || placeholder, support: ups.support || placeholder });
@@ -78,7 +78,7 @@ export default function PageDocUpload() {
           Skip All Docs (Admin)
         </button>
       )}
-      <Btn onClick={() => go("packageSelect")}>{t(lang, "continueForm")}</Btn>
+      <Btn onClick={() => go("preview")}>{t(lang, "continueForm")}</Btn>
     </div>
   );
 }

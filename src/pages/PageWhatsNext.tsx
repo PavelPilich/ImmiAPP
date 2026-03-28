@@ -6,7 +6,7 @@ import Nav from "../components/layout/Nav";
 import { Btn } from "../components/ui/Button";
 import UscisWarning from "../components/UscisWarning";
 
-import { USCIS_URLS, USCIS_ONLINE, USCIS_INFO_URLS } from "../lib/uscisFeesSync";
+import { USCIS_URLS, USCIS_ONLINE } from "../lib/uscisFeesSync";
 
 export default function PageWhatsNext() {
   const { lang, go, selForm, pkg, user, uscisConf, setUscisConf } = useContext(AppCtx) as any;
@@ -52,8 +52,8 @@ export default function PageWhatsNext() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
-      <Nav title="What Happens Next" backTo="paymentOptions" />
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
+      <Nav title="What Happens Next" backTo="dashboard" />
       {renderPlanInfo()}
       <UscisWarning fee={f.uscis} formId={f.id} large />
 

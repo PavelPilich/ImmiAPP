@@ -131,7 +131,7 @@ export default function PageFAQ() {
           })}
         </div>
 
-        <div style={{ fontSize: 9, color: S.wrn, marginTop: 8 }}>
+        <div style={{ fontSize: 11, color: S.wrn, marginTop: 8 }}>
           Estimates based on current USCIS data. Actual times may vary. This is not a guarantee.
         </div>
       </div>

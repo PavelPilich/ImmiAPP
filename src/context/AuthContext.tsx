@@ -14,10 +14,12 @@ interface AuthContextType {
   session: Session | null
   loading: boolean
   signInWithEmail: (email: string, password: string) => Promise<void>
-  signUpWithEmail: (email: string, password: string) => Promise<void>
+  signUpWithEmail: (email: string, password: string, fullName?: string) => Promise<void>
   signInWithGoogle: () => Promise<void>
   signInWithApple: () => Promise<void>
   signOut: () => Promise<void>
+  resetPassword: (email: string) => Promise<void>
+  resendVerification: (email: string) => Promise<void>
   mockLogin: (name: string, email: string) => void
 }
 
@@ -79,12 +81,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) throw error
   }
 
-  const signUpWithEmail = async (email: string, password: string) => {
+  const signUpWithEmail = async (email: string, password: string, fullName?: string) => {
     if (!supabase) {
-      mockLogin('User', email)
+      mockLogin(fullName || 'User', email)
       return
     }
-    const { error } = await supabase.auth.signUp({ email, password })
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: fullName ? { data: { full_name: fullName } } : undefined,
+    })
     if (error) throw error
   }
 
@@ -112,6 +118,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSession(null)
   }
 
+  const resetPassword = async (email: string) => {
+    if (!supabase) return
+    const { error } = await supabase.auth.resetPasswordForEmail(email)
+    if (error) throw error
+  }
+
+  const resendVerification = async (email: string) => {
+    if (!supabase) return
+    const { error } = await supabase.auth.resend({ type: 'signup', email })
+    if (error) throw error
+  }
+
   const mockLogin = (name: string, email: string) => {
     setUser({ name, email })
     setLoading(false)
@@ -128,6 +146,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signInWithGoogle,
         signInWithApple,
         signOut,
+        resetPassword,
+        resendVerification,
         mockLogin,
       }}
     >

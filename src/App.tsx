@@ -19,7 +19,6 @@ import PageFormSelect from "./pages/PageFormSelect";
 import PageFormDetail from "./pages/PageFormDetail";
 import PageFormFill from "./pages/PageFormFill";
 import PageDocUpload from "./pages/PageDocUpload";
-import PagePackageSelect from "./pages/PagePackageSelect";
 import PagePreview from "./pages/PagePreview";
 import PagePay from "./pages/PagePay";
 import PagePaymentOptions from "./pages/PagePaymentOptions";
@@ -46,7 +45,6 @@ const PAGES: Record<string, React.ComponentType> = {
   formDetail: PageFormDetail,
   formFill: PageFormFill,
   docUpload: PageDocUpload,
-  packageSelect: PagePackageSelect,
   preview: PagePreview,
   pay: PagePay,
   paymentOptions: PagePaymentOptions,
@@ -84,6 +82,8 @@ export default function App() {
   const [clock, setClock] = useState("");
   const [payTotal, setPayTotal] = useState(0);
   const [uscisConf, setUscisConf] = useState("");
+  const [ourFeePaid, setOurFeePaid] = useState(false);
+  const [uscisPaid, setUscisPaid] = useState(false);
   const [savedFormId, setSavedFormId] = useState<string | null>(null);
   const [promoCode, setPromoCode] = useState("");
   const [discountPct, setDiscountPct] = useState(0);
@@ -102,7 +102,7 @@ export default function App() {
   /* ── Navigation ── */
   const go = useCallback((p: PageName) => { setPage(p); setErrs({}); }, []);
 
-  const resetForm = useCallback(() => { setSelForm(null); setPkg(null); setFSec(0); setSavedFormId(null); setPromoCode(""); setDiscountPct(0); }, []);
+  const resetForm = useCallback(() => { setSelForm(null); setPkg(null); setFSec(0); setSavedFormId(null); setPromoCode(""); setDiscountPct(0); setOurFeePaid(false); setUscisPaid(false); setUscisConf(""); }, []);
 
   const doLogout = useCallback(() => {
     setLoggedIn(false);
@@ -162,6 +162,8 @@ export default function App() {
     resetForm, doLogout,
     payTotal, setPayTotal,
     uscisConf, setUscisConf,
+    ourFeePaid, setOurFeePaid,
+    uscisPaid, setUscisPaid,
     savedFormId, setSavedFormId,
     promoCode, setPromoCode,
     discountPct, setDiscountPct,

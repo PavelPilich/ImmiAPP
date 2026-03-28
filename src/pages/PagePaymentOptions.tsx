@@ -10,7 +10,7 @@ import StripeCardForm from "../components/payment/StripeCardForm";
 import PayPalButton from "../components/payment/PayPalButton";
 
 export default function PagePaymentOptions() {
-  const { lang, go, selForm, payTotal, pkg, savedFormId, promoCode, discountPct } = useContext(AppCtx) as any;
+  const { lang, go, selForm, payTotal, pkg, savedFormId, promoCode, discountPct, setOurFeePaid } = useContext(AppCtx) as any;
   const auth = useAuth();
   const recordPayment = useRecordPayment();
   const updateStatus = useUpdateFormStatus();
@@ -18,7 +18,7 @@ export default function PagePaymentOptions() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
 
   if (!selForm) return <div style={S.page} dir={isRTL ? "rtl" : "ltr"}><Nav title="" backTo="dashboard" /></div>;
   const tot = (payTotal || 0).toFixed(2);
@@ -77,7 +77,7 @@ export default function PagePaymentOptions() {
           <div style={{ fontSize: 14, color: S.t2, marginBottom: 4 }}>{t(lang, "total")}</div>
           <div style={{ fontSize: 32, fontWeight: 900, color: "#fff" }}>${tot}</div>
         </div>
-        <Btn onClick={() => go("whatsNext")} style={{ marginTop: 16 }}>{t(lang, "next") + " →"}</Btn>
+        <Btn onClick={() => { setOurFeePaid(true); go("formDetail"); }} style={{ marginTop: 16 }}>{t(lang, "backToForm") || "Back to Form →"}</Btn>
       </div>
     );
   }
@@ -130,13 +130,16 @@ export default function PagePaymentOptions() {
         </div>
       )}
 
-      {/* Admin bypass — skip payment */}
-      <button onClick={() => {
-        doRecordPayment('admin_bypass');
-        setSuccess(true);
-      }} style={{ background: "rgba(99,102,241,.2)", border: "1px solid rgba(99,102,241,.4)", borderRadius: 12, padding: "10px 16px", color: "#6366f1", fontSize: 12, fontWeight: 700, cursor: "pointer", width: "100%", marginBottom: 12 }}>
-        Skip Payment (Admin)
-      </button>
+      {/* Admin bypass — skip payment (DEV only) */}
+      {import.meta.env.DEV && (
+        <button onClick={() => {
+          doRecordPayment('admin_bypass');
+          setOurFeePaid(true);
+          setSuccess(true);
+        }} style={{ background: "rgba(99,102,241,.2)", border: "1px solid rgba(99,102,241,.4)", borderRadius: 12, padding: "10px 16px", color: "#6366f1", fontSize: 12, fontWeight: 700, cursor: "pointer", width: "100%", marginBottom: 12 }}>
+          Skip Payment (Admin)
+        </button>
+      )}
 
       <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 12, color: "#fff" }}>{t(lang, "selectPayMethod")}</div>
 

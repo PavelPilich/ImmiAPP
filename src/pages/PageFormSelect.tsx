@@ -15,7 +15,7 @@ export default function PageFormSelect() {
     { k:"vcomplex", forms:FORMS.filter((f: any) => f.tier === "vcomplex").sort(sortByPrice), c:"#c084fc" },
   ];
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "selectForm")} backTo="dashboard" />
       {tiers.map(tier => (
         <div key={tier.k}>

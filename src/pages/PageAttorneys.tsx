@@ -46,7 +46,7 @@ function ta(lang: string, key: string) {
 
 export default function PageAttorneys() {
   const { lang, go } = useContext(AppCtx) as any;
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
 
   // Attorney portal state
   const [showPortal, setShowPortal] = useState(false);
@@ -166,7 +166,7 @@ export default function PageAttorneys() {
           </button>
         </div>
 
-        <Btn onClick={() => go("formSelect")}>{t(lang, "back")}</Btn>
+        <Btn onClick={() => go("dashboard")}>{t(lang, "back")}</Btn>
       </div>
     );
   }

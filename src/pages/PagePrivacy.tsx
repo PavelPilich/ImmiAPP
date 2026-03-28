@@ -24,7 +24,7 @@ export default function PagePrivacy() {
 
   return (
     <div style={S.page} dir={isRTL ? "rtl" : "ltr"}>
-      <Nav title="Privacy Policy" backTo="onboard" />
+      <Nav title="Privacy Policy" backTo="auth" />
 
       <div style={{ textAlign: "center", marginBottom: 16 }}>
         <div style={{ fontSize: 13, color: S.t2 }}>Last Updated: March 2026</div>

@@ -22,8 +22,8 @@ export default function PageProfile() {
 
   useEffect(() => {
     if (profile) {
-      setName(profile.full_name || user.name || "");
-      setPhone(profile.phone || "");
+      setName((profile as any).full_name || user.name || "");
+      setPhone((profile as any).phone || "");
     }
   }, [profile, user.name]);
 
@@ -51,7 +51,7 @@ export default function PageProfile() {
   );
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "profile")} backTo="dashboard" />
       <div style={{ ...S.crd, textAlign:"center", padding:24 }}>
         <div style={{ width:80, height:80, borderRadius:40, background:S.priBtn, display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", fontSize:32, color:"#fff" }}>{(name || user.name || "U")[0]}</div>

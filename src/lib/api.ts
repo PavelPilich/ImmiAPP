@@ -1,4 +1,5 @@
-import { supabase } from './supabase'
+import { supabase as _sb } from './supabase'
+const supabase = _sb as any
 
 // ── Profile ──
 
@@ -144,6 +145,59 @@ export async function updateFormStatus(formId: string, status: string, extra?: {
   return data
 }
 
+// ── Form Submission ──
+
+export async function submitForm(params: {
+  savedFormId: string
+  submissionMethod: 'mail' | 'digital'
+  trackingNumber: string
+  digitalDataPackage?: Record<string, any> | null
+}) {
+  if (!supabase) {
+    console.log('[mock] Form submitted:', params)
+    return { id: params.savedFormId, tracking_number: params.trackingNumber, submission_method: params.submissionMethod }
+  }
+  const { data, error } = await supabase
+    .from('saved_forms')
+    .update({
+      status: 'submitted',
+      submission_method: params.submissionMethod,
+      tracking_number: params.trackingNumber,
+      submitted_at: new Date().toISOString(),
+      digital_data_package: params.digitalDataPackage || null,
+      team_notified: false,
+    })
+    .eq('id', params.savedFormId)
+    .select()
+    .single()
+  if (error) throw error
+  return data
+}
+
+export async function getPendingSubmissions() {
+  if (!supabase) return []
+  const { data, error } = await supabase
+    .from('saved_forms')
+    .select('*')
+    .eq('status', 'submitted')
+    .eq('team_notified', false)
+    .order('submitted_at', { ascending: false })
+  if (error) throw error
+  return data || []
+}
+
+export async function markTeamNotified(formId: string) {
+  if (!supabase) return null
+  const { data, error } = await supabase
+    .from('saved_forms')
+    .update({ team_notified: true })
+    .eq('id', formId)
+    .select()
+    .single()
+  if (error) throw error
+  return data
+}
+
 // ── Uploads ──
 
 export async function uploadDocument(params: {
@@ -274,13 +328,14 @@ export async function validatePromoCode(code: string): Promise<{ valid: boolean;
 
   if (!data) return { valid: false, discountPercent: 0 }
 
+  const d = data as any
   const now = new Date()
-  const validFrom = new Date(data.valid_from)
-  const validUntil = data.valid_until ? new Date(data.valid_until) : null
-  const withinUses = !data.max_uses || data.current_uses < data.max_uses
+  const validFrom = new Date(d.valid_from)
+  const validUntil = d.valid_until ? new Date(d.valid_until) : null
+  const withinUses = !d.max_uses || d.current_uses < d.max_uses
 
   if (now >= validFrom && (!validUntil || now <= validUntil) && withinUses) {
-    return { valid: true, discountPercent: data.discount_percent }
+    return { valid: true, discountPercent: d.discount_percent }
   }
 
   return { valid: false, discountPercent: 0 }

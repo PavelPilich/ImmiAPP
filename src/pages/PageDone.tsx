@@ -28,7 +28,7 @@ export default function PageDone() {
   };
 
   return (
-    <div style={{ ...S.page, textAlign:"center", paddingTop:40 }} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={{ ...S.page, textAlign:"center", paddingTop:40 }} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "complete")} backTo="submitConfirm" />
       <div style={{ fontSize:80, marginBottom:8 }}>🎉🎊✨</div>
       <h1 style={{ fontSize:26, marginBottom:8 }}>{t(lang, "complete")}</h1>
@@ -40,14 +40,14 @@ export default function PageDone() {
         </div>
       )}
       <div style={{ ...S.crd, padding:20, textAlign:"center" }}>
-        <div style={{ fontSize:13, color:S.t2, marginBottom:4 }}>Case Reference</div>
+        <div style={{ fontSize:13, color:S.t2, marginBottom:4 }}>{t(lang, "caseReference")}</div>
         <div style={{ fontSize:24, fontWeight:800, color:S.pri, letterSpacing:2 }}>{caseRef}</div>
       </div>
 
       {/* Download PDF */}
       {selForm && (
         <button onClick={() => generateFormPdf({ formName: selForm.name, formId: selForm.id, caseRef, userName: user?.name || "User", userEmail: user?.email || "", fd, fields: selForm.fields, sections: selForm.sections, packageType: pkg })} style={{ ...S.btn, background: "linear-gradient(135deg,#22c55e,#16a34a)", marginBottom: 12 }}>
-          Download Your Forms (PDF)
+          {t(lang, "downloadFormsPdf")}
         </button>
       )}
 

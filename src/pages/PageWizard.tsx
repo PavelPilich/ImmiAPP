@@ -12,7 +12,7 @@ export default function PageWizard() {
     { k:"goalCitizen",f:"n400" },{ k:"goalGreen",f:"i485" },{ k:"goalTravel",f:"i131" },{ k:"goalAsylum",f:"i589" },
   ];
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "formWizard")} backTo="dashboard" />
       {goals.map(g => (
         <div key={g.k} onClick={() => { setSelForm(FORMS.find((f: any) => f.id === g.f)); go("formDetail"); }} style={{ ...S.crd, display:"flex", justifyContent:"space-between", alignItems:"center" }}>

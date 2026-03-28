@@ -12,7 +12,6 @@ interface NavProps {
 
 function Nav({ title, backTo }: NavProps) {
   const { lang, go } = useContext(AppCtx)!;
-  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
   return (
     <div dir="ltr" style={{ marginBottom:16, position:"relative", zIndex:9999 }}>
       <div style={{ position:"relative", background:"linear-gradient(135deg,#0c1445,#1a237e,#0d47a1,#0c1445)", marginLeft:-16, marginRight:-16, padding:"14px 16px 12px", boxShadow:"0 8px 30px rgba(12,20,69,.9)" }}>

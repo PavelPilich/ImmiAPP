@@ -41,6 +41,11 @@ export interface Database {
           package_type: string | null
           case_reference: string | null
           uscis_confirmation: string | null
+          submission_method: string | null
+          tracking_number: string | null
+          submitted_at: string | null
+          digital_data_package: Record<string, any> | null
+          team_notified: boolean
           created_at: string
           updated_at: string
         }
@@ -54,6 +59,11 @@ export interface Database {
           package_type?: string | null
           case_reference?: string | null
           uscis_confirmation?: string | null
+          submission_method?: string | null
+          tracking_number?: string | null
+          submitted_at?: string | null
+          digital_data_package?: Record<string, any> | null
+          team_notified?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -67,6 +77,11 @@ export interface Database {
           package_type?: string | null
           case_reference?: string | null
           uscis_confirmation?: string | null
+          submission_method?: string | null
+          tracking_number?: string | null
+          submitted_at?: string | null
+          digital_data_package?: Record<string, any> | null
+          team_notified?: boolean
           created_at?: string
           updated_at?: string
         }

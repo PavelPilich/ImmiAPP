@@ -5,16 +5,26 @@ import { useState, useEffect, useRef, useCallback, createContext, useContext } f
    ╚═══════════════════════════════════════════════════════════════════════════╝ */
 
 const LANGS = [
-  { code: "en", name: "English",   flag: "🇺🇸" },
-  { code: "es", name: "Español",   flag: "🇪🇸" },
-  { code: "ru", name: "Русский",   flag: "🇷🇺" },
-  { code: "fr", name: "Français",  flag: "🇫🇷" },
-  { code: "pt", name: "Português", flag: "🇧🇷" },
-  { code: "ht", name: "Kreyòl",    flag: "🇭🇹" },
-  { code: "ar", name: "العربية",   flag: "🇸🇦" },
-  { code: "so", name: "Soomaali",  flag: "🇸🇴" },
-  { code: "ne", name: "नेपाली",     flag: "🇳🇵" },
-  { code: "my", name: "မြန်မာ",    flag: "🇲🇲" },
+  { code: "en", name: "English",    flag: "🇺🇸" },
+  { code: "uk", name: "Українська", flag: "🇺🇦" },
+  { code: "pl", name: "Polski",     flag: "🇵🇱" },
+  { code: "ru", name: "Русский",    flag: "🇷🇺" },
+  { code: "es", name: "Español",    flag: "🇪🇸" },
+  { code: "fr", name: "Français",   flag: "🇫🇷" },
+  { code: "pt", name: "Português",  flag: "🇧🇷" },
+  { code: "ht", name: "Kreyòl",     flag: "🇭🇹" },
+  { code: "ar", name: "العربية",    flag: "🇸🇦" },
+  { code: "so", name: "Soomaali",   flag: "🇸🇴" },
+  { code: "ne", name: "नेपाली",      flag: "🇳🇵" },
+  { code: "my", name: "မြန်မာ",     flag: "🇲🇲" },
+  { code: "ro", name: "Română",     flag: "🇷🇴" },
+  { code: "bg", name: "Български",  flag: "🇧🇬" },
+  { code: "tr", name: "Türkçe",     flag: "🇹🇷" },
+  { code: "it", name: "Italiano",   flag: "🇮🇹" },
+  { code: "de", name: "Deutsch",    flag: "🇩🇪" },
+  { code: "fa", name: "فارسی",      flag: "🇮🇷" },
+  { code: "he", name: "עברית",      flag: "🇮🇱" },
+  { code: "zh", name: "中文",        flag: "🇨🇳" },
 ];
 
 /* ╔═══════════════════════════════════════════════════════════════════════════╗
@@ -343,7 +353,7 @@ function LangDropdown({ compact }) {
   const { lang, setLang } = useContext(AppCtx);
   const [open, setOpen] = useState(false);
   const closeTimer = useRef(null);
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
   const cur = LANGS.find(x => x.code === lang);
 
   const enter = () => { if (closeTimer.current) clearTimeout(closeTimer.current); setOpen(true); };
@@ -382,7 +392,7 @@ function LangDropdown({ compact }) {
 
 function Nav({ title, backTo }) {
   const { lang, go } = useContext(AppCtx);
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
   return (
     <div dir={isRTL ? "rtl" : "ltr"} style={{ marginBottom:16, position:"sticky", top:0, zIndex:100 }}>
       <div style={{ position:"relative", overflow:"hidden", background:"linear-gradient(135deg,#0c1445,#1a237e,#0d47a1,#0c1445)", marginLeft:-16, marginRight:-16, padding:"14px 16px 12px", boxShadow:"0 4px 20px rgba(12,20,69,.5)" }}>
@@ -491,7 +501,7 @@ function Marquee() {
 
 function PageOnboard() {
   const { lang, go } = useContext(AppCtx);
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
   const isEn = lang === "en";
   const title = ONBOARD_TITLE[lang] || ONBOARD_TITLE.en;
 
@@ -536,7 +546,7 @@ function PageAuth() {
   const { lang, go, setUser, setLoggedIn } = useContext(AppCtx);
   const [aEmail, setAEmail] = useState("");
   const [aPass, setAPass] = useState("");
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
 
   const login = (name, email) => { setUser({ name, email }); setLoggedIn(true); go("dashboard"); };
 
@@ -580,7 +590,7 @@ function PageDashboard() {
   ];
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "dashboard")} backTo="onboard" />
       <h2 style={{ fontSize:20, marginBottom:4 }}>{t(lang, "welcome")}, {user.name}!</h2>
       <p style={{ color:S.t2, marginBottom:16 }}>{bt(lang, "myForms")}</p>
@@ -608,7 +618,7 @@ function PageWizard() {
     { k:"goalCitizen",f:"n400" },{ k:"goalGreen",f:"i485" },{ k:"goalTravel",f:"i131" },{ k:"goalAsylum",f:"i589" },
   ];
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "formWizard")} backTo="dashboard" />
       {goals.map(g => (
         <div key={g.k} onClick={() => { setSelForm(FORMS.find(f => f.id === g.f)); go("formDetail"); }} style={{ ...S.crd, display:"flex", justifyContent:"space-between", alignItems:"center" }}>
@@ -632,7 +642,7 @@ function PageFormSelect() {
     { k:"complex", forms:FORMS.filter(f => f.tier === "complex"), c:S.err },
   ];
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "selectForm")} backTo="dashboard" />
       {tiers.map(tier => (
         <div key={tier.k}>
@@ -658,10 +668,10 @@ function PageFormSelect() {
 
 function PageFormDetail() {
   const { lang, go, selForm, setFSec, setPkg } = useContext(AppCtx);
-  if (!selForm) return <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
+  if (!selForm) return <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
   const f = selForm;
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={f.name} backTo="formSelect" />
       <div style={{ ...S.crd, textAlign:"center", padding:24 }}>
         <h2>{f.name}</h2>
@@ -683,7 +693,7 @@ function PageFormDetail() {
 
 function PageFormFill() {
   const { lang, go, selForm, fd, setFd, fSec, setFSec, errs, setErrs } = useContext(AppCtx);
-  if (!selForm) return <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
+  if (!selForm) return <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
 
   const f = selForm;
   const sectionFields = f.fields.filter(x => x.s === fSec);
@@ -727,7 +737,7 @@ function PageFormFill() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={f.name + " " + (fSec+1) + "/" + totalSections} backTo="formDetail" />
       <PB pct={pct} />
       {sectionFields.map(renderField)}
@@ -768,7 +778,7 @@ function PageDocUpload() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "docUpload")} backTo="formFill" />
       {docs.map(d => (
         <div key={d.k} style={{ ...S.crd, padding:16 }}>
@@ -803,7 +813,7 @@ function PageDocUpload() {
 
 function PagePackageSelect() {
   const { lang, go, selForm, pkg, setPkg } = useContext(AppCtx);
-  if (!selForm) return <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
+  if (!selForm) return <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
 
   const options = [
     { k:"pdf",       i:"📄", label:"Digital PDF Download",          pr:0,  desc:"Download and print yourself" },
@@ -813,7 +823,7 @@ function PagePackageSelect() {
   ];
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title="Delivery Option" backTo="docUpload" />
       <div style={{ ...S.crd, padding:12, marginBottom:16, textAlign:"center", background:"rgba(99,102,241,.12)" }}>
         <div style={{ fontSize:14, fontWeight:700 }}>{selForm.name}</div>
@@ -844,11 +854,11 @@ function PagePackageSelect() {
 
 function PagePreview() {
   const { lang, go, selForm, fd } = useContext(AppCtx);
-  if (!selForm) return <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
+  if (!selForm) return <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
   const f = selForm;
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "pdfPreview")} backTo="packageSelect" />
       <div style={{ ...S.crd, padding:24 }}>
         <h3 style={{ marginBottom:16 }}>{f.name + " — " + t(lang, "review")}</h3>
@@ -891,7 +901,7 @@ function PagePay() {
   useEffect(() => { setPayTotal(tot); }, [tot, setPayTotal]);
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "payment")} backTo="preview" />
       <div style={{ ...S.crd, padding:20 }}>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8 }}><span>{f.name + " — " + t(lang, "serviceFee")}</span><span style={{ fontWeight:700 }}>{"$" + f.fee}</span></div>
@@ -921,7 +931,7 @@ function PagePaymentOptions() {
   const [cardName, setCardName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
 
   if (!selForm) return <div style={S.page} dir={isRTL?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
   const tot = (payTotal || 0).toFixed(2);
@@ -1172,7 +1182,7 @@ function PageWhatsNext() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title="What Happens Next" backTo="paymentOptions" />
       {renderPlanInfo()}
       <UscisWarning fee={f.uscis} formId={f.id} large />
@@ -1218,7 +1228,7 @@ function PageSubmitConfirm() {
   const planLabel = pkg==="express" ? "Express Delivery" : pkg==="fullSvc" ? "Full Service (We Mail to USCIS)" : pkg==="printShip" ? "Print & Ship to You" : "Digital PDF Download";
 
   return (
-    <div style={{ ...S.page, textAlign:"center", paddingTop:10 }} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={{ ...S.page, textAlign:"center", paddingTop:10 }} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title="Submitting to USCIS" backTo="whatsNext" />
       <div style={{ fontSize:64, marginBottom:8 }}>📬</div>
       <h2 style={{ fontSize:20, marginBottom:12, lineHeight:1.4 }}>We Will Now Submit Your<br /><strong style={{ color:S.pri }}>{f.name}</strong> Application to USCIS</h2>
@@ -1252,7 +1262,7 @@ function PageSubmitConfirm() {
 function PageDone() {
   const { lang, go, caseRef } = useContext(AppCtx);
   return (
-    <div style={{ ...S.page, textAlign:"center", paddingTop:40 }} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={{ ...S.page, textAlign:"center", paddingTop:40 }} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "complete")} backTo="submitConfirm" />
       <div style={{ fontSize:80, marginBottom:8 }}>🎉🎊✨</div>
       <h1 style={{ fontSize:26, marginBottom:8 }}>{t(lang, "complete")}</h1>
@@ -1293,7 +1303,7 @@ function PageTracking() {
   const descs  = { done:"Completed", pending:"Submitting in 5-7 days", waiting:"Awaiting" };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "tracking")} backTo="dashboard" />
       <div style={{ ...S.crd, padding:16, textAlign:"center", marginBottom:16 }}>
         <div style={{ fontSize:13, color:S.t2 }}>Case</div>
@@ -1337,7 +1347,7 @@ function PageCivics() {
     const pass = pct >= 70;
     const clr = pass ? "#22c55e" : "#ef4444";
     return (
-      <div style={{ ...S.page, textAlign:"center", paddingTop:20 }} dir={lang==="ar"?"rtl":"ltr"}>
+      <div style={{ ...S.page, textAlign:"center", paddingTop:20 }} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
         <Nav title="Civics Test" backTo="dashboard" />
         <div style={{ fontSize:64, marginBottom:8 }}>{pass ? "🎉🏆✅" : "📚💪"}</div>
         <div style={{ width:140, height:140, borderRadius:70, border:"8px solid "+clr, display:"flex", alignItems:"center", justifyContent:"center", margin:"12px auto", background:clr+"18" }}>
@@ -1363,7 +1373,7 @@ function PageCivics() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title="Civics Test" backTo="dashboard" />
       <PB pct={((qIdx + 1) / CIVICS.length) * 100} />
       <div style={{ fontSize:13, color:S.t2, marginBottom:8 }}>Question {qIdx + 1} of {CIVICS.length}</div>
@@ -1397,7 +1407,7 @@ function PageCivics() {
 function PageKnowledge() {
   const { lang } = useContext(AppCtx);
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "knowledgeBase")} backTo="dashboard" />
       <div style={S.crd}>
         <h3>🇺🇸 {t(lang, "appName")}</h3>
@@ -1427,7 +1437,7 @@ function PageProfile() {
   );
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "profile")} backTo="dashboard" />
       <div style={{ ...S.crd, textAlign:"center", padding:24 }}>
         <div style={{ width:80, height:80, borderRadius:40, background:S.pri, display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", fontSize:32, color:"#fff" }}>{(user.name || "U")[0]}</div>

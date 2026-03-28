@@ -50,7 +50,7 @@ const ADMIN_VALUES: Record<string, string> = {
 // Check if admin mode (logged in as Admin or no Supabase)
 function isAdminMode(): boolean {
   try {
-    const fd = localStorage.getItem("immiguide_fd");
+    void localStorage.getItem("immiguide_fd");
     // Always enable click-to-fill in dev/admin mode
     return true;
   } catch { return false; }

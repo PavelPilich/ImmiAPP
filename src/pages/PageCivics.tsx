@@ -24,7 +24,7 @@ export default function PageCivics() {
     const pass = pct >= 70;
     const clr = pass ? "#22c55e" : "#ef4444";
     return (
-      <div style={{ ...S.page, textAlign:"center", paddingTop:20 }} dir={lang==="ar"?"rtl":"ltr"}>
+      <div style={{ ...S.page, textAlign:"center", paddingTop:20 }} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
         <Nav title="Civics Test" backTo="dashboard" />
         <div style={{ fontSize:64, marginBottom:8 }}>{pass ? "🎉🏆✅" : "📚💪"}</div>
         <div style={{ width:140, height:140, borderRadius:70, border:"8px solid "+clr, display:"flex", alignItems:"center", justifyContent:"center", margin:"12px auto", background:clr+"18" }}>
@@ -50,7 +50,7 @@ export default function PageCivics() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title="Civics Test" backTo="dashboard" />
       <PB pct={((qIdx + 1) / CIVICS.length) * 100} />
       <div style={{ fontSize:13, color:S.t2, marginBottom:8 }}>Question {qIdx + 1} of {CIVICS.length}</div>

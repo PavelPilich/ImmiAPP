@@ -50,7 +50,7 @@ export default function PageDashboard() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "dashboard")} backTo="onboard" />
       <h2 style={{ fontSize:20, marginBottom:4 }}>{t(lang, "welcome")}, {user.name}!</h2>
       <p style={{ color:S.t2, marginBottom:16 }}>{bt(lang, "myForms")}</p>

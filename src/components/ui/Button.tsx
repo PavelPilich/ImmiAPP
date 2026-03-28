@@ -15,6 +15,7 @@ function Btn({ disabled, onClick, outline, color, style, children }: BtnProps) {
     <button disabled={disabled} onClick={onClick} style={{
       ...(outline ? S.btnO : S.btn),
       opacity: disabled ? .5 : 1,
+      cursor: disabled ? "not-allowed" : "pointer",
       ...(color ? { background: color } : {}),
       ...(style || {}),
     }}>{children}</button>

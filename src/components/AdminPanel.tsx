@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { AppCtx } from "../context/AppContext";
 import { FORMS } from "../data/forms";
+import { usePendingSubmissions, useMarkTeamNotified } from "../hooks/useApi";
 import type { PageName } from "../types";
 
 const ALL_PAGES: { name: PageName; label: string; icon: string }[] = [
@@ -12,7 +13,6 @@ const ALL_PAGES: { name: PageName; label: string; icon: string }[] = [
   { name: "formDetail", label: "Form Detail", icon: "📄" },
   { name: "formFill", label: "Form Fill", icon: "✍️" },
   { name: "docUpload", label: "Doc Upload", icon: "📷" },
-  { name: "packageSelect", label: "Package", icon: "📦" },
   { name: "preview", label: "Preview", icon: "👁️" },
   { name: "pay", label: "Pay", icon: "💳" },
   { name: "paymentOptions", label: "Payment Options", icon: "💰" },
@@ -185,7 +185,9 @@ function generateFormData(formId: string, fields: any[]): Record<string, string>
 export default function AdminPanel() {
   const ctx = useContext(AppCtx) as any;
   const [open, setOpen] = useState(false);
-  const [selectedFormIdx, setSelectedFormIdx] = useState(0);
+  const [selectedFormIdx] = useState(0);
+  const { data: pendingSubs } = usePendingSubmissions();
+  const markNotified = useMarkTeamNotified();
 
   const ensureTestData = () => {
     if (!ctx.loggedIn) {
@@ -204,6 +206,8 @@ export default function AdminPanel() {
     if (!ctx.uscisConf) {
       ctx.setUscisConf("USCIS-TEST-2026-001");
     }
+    if (ctx.setOurFeePaid) ctx.setOurFeePaid(true);
+    if (ctx.setUscisPaid) ctx.setUscisPaid(true);
   };
 
   const autoFillCurrentForm = () => {
@@ -215,6 +219,8 @@ export default function AdminPanel() {
     ctx.setPkg("fullSvc");
     ctx.setPayTotal(form.fee + 25);
     ctx.setUscisConf("USCIS-TEST-2026-001");
+    if (ctx.setOurFeePaid) ctx.setOurFeePaid(true);
+    if (ctx.setUscisPaid) ctx.setUscisPaid(true);
   };
 
   const autoFillAllForms = () => {
@@ -330,6 +336,31 @@ export default function AdminPanel() {
               {p.label}
             </div>
           ))}
+
+          {/* ── Pending Submissions Queue ── */}
+          {pendingSubs && pendingSubs.length > 0 && (
+            <>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "#f59e0b", marginTop: 8, marginBottom: 4 }}>
+                📬 PENDING ({pendingSubs.length})
+              </div>
+              <div style={{ maxHeight: 120, overflowY: "auto" }}>
+                {pendingSubs.map((sub: any) => (
+                  <div key={sub.id} style={{ padding: "4px 8px", borderRadius: 6, background: "rgba(251,191,36,.1)", border: "1px solid rgba(251,191,36,.3)", marginBottom: 4, fontSize: 10 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <span style={{ fontWeight: 700, color: "#fff" }}>{sub.form_type?.toUpperCase()}</span>
+                      <span style={{ fontSize: 9, padding: "1px 6px", borderRadius: 4, background: sub.submission_method === "mail" ? "rgba(251,191,36,.2)" : "rgba(52,211,153,.2)", color: sub.submission_method === "mail" ? "#f59e0b" : "#34d399", fontWeight: 700 }}>
+                        {sub.submission_method === "mail" ? "📦 MAIL" : "🌐 DIGITAL"}
+                      </span>
+                    </div>
+                    <div style={{ color: "rgba(255,255,255,.5)", fontSize: 9 }}>{sub.tracking_number}</div>
+                    <button onClick={() => markNotified.mutate(sub.id)} style={{ ...S.btn, background: "#f59e0b", color: "#000", marginTop: 3 }}>
+                      ✅ Acknowledge
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
     </>

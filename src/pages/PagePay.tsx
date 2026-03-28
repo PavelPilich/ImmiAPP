@@ -16,7 +16,7 @@ export default function PagePay() {
   if (!selForm) return <div style={S.page}><Nav title="" backTo="dashboard" /></div>;
   const f = selForm;
   const delPr = pkg==="printShip" ? 15 : pkg==="fullSvc" ? 25 : pkg==="express" ? 50 : 0;
-  const delLabel = pkg==="printShip" ? "Print & Ship" : pkg==="fullSvc" ? "Full Service" : pkg==="express" ? "Express" : "Digital PDF";
+  const delLabel = pkg==="printShip" ? t(lang,"printAndShip") : pkg==="fullSvc" ? t(lang,"fullServiceMail") : pkg==="express" ? t(lang,"expressDelivery") : t(lang,"digitalPdf");
   const sub = f.fee + delPr;
   const pct = promoOn ? discountPct : 0;
   const disc = sub * pct / 100;
@@ -44,8 +44,8 @@ export default function PagePay() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
-      <Nav title={t(lang, "payment")} backTo="preview" />
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
+      <Nav title={t(lang, "payment")} backTo="formDetail" />
       <div style={{ ...S.crd, padding:20 }}>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8 }}><span>{f.name + " — " + t(lang, "serviceFee")}</span><span style={{ fontWeight:700 }}>{"$" + f.fee}</span></div>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8 }}><span>{delLabel}</span><span style={{ fontWeight:700, color:delPr?S.pri:S.ok }}>{delPr ? "$"+delPr : "FREE"}</span></div>

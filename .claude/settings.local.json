@@ -53,7 +53,11 @@
       "Bash(npx -y acorn --ecma2020 --jsx --allow-import-export-everywhere src/pages/PageFormDetail.tsx)",
       "Bash(npx oxlint:*)",
       "Bash(lsof -ti:5173)",
-      "Bash(xargs kill:*)"
+      "Bash(xargs kill:*)",
+      "WebFetch(domain:www.immigrationdirect.com)",
+      "WebFetch(domain:feecalculator.us)",
+      "Bash(npm run:*)",
+      "Bash(grep -n \"await supabase$\" /Users/smartconstructionremodelinginc/Documents/ImmiAPP/src/lib/api.ts)"
     ]
   }
 }

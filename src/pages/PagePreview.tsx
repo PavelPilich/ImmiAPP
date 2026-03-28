@@ -7,13 +7,13 @@ import { Btn } from "../components/ui/Button";
 import { generateFormPdf } from "../lib/pdfGenerator";
 
 export default function PagePreview() {
-  const { lang, go, selForm, fd, user, caseRef, pkg } = useContext(AppCtx) as any;
-  if (!selForm) return <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
+  const { lang, go, selForm, fd, user, caseRef, pkg, ourFeePaid } = useContext(AppCtx) as any;
+  if (!selForm) return <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
   const f = selForm;
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
-      <Nav title={t(lang, "pdfPreview")} backTo="packageSelect" />
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
+      <Nav title={t(lang, "pdfPreview")} backTo="docUpload" />
       <div style={{ ...S.crd, padding:24 }}>
         <h3 style={{ marginBottom:16 }}>{f.name + " — " + t(lang, "review")}</h3>
         {f.fields.map((fl: any) => {
@@ -31,7 +31,7 @@ export default function PagePreview() {
         <Btn outline onClick={() => window.print()} style={{ flex:1 }}>{t(lang, "print")}</Btn>
         <Btn outline onClick={() => generateFormPdf({ formName: f.name, formId: f.id, caseRef, userName: user?.name || "User", userEmail: user?.email || "", fd, fields: f.fields, sections: f.sections, packageType: pkg })} style={{ flex:1 }}>PDF</Btn>
       </div>
-      <Btn onClick={() => go("pay")} style={{ marginTop: 8 }}>{t(lang, "continueForm")}</Btn>
+      <Btn onClick={() => go(ourFeePaid ? "submitConfirm" : "pay")} style={{ marginTop: 8 }}>{t(lang, "continueForm")}</Btn>
     </div>
   );
 }

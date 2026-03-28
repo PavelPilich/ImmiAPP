@@ -9,7 +9,7 @@ import Stars from "../components/ui/Stars";
 
 export default function PageOnboard() {
   const { lang, go } = useContext(AppCtx) as any;
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
   const isEn = lang === "en";
   const title = ONBOARD_TITLE[lang] || ONBOARD_TITLE.en;
 

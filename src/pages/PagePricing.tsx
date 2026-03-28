@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AppCtx } from "../context/AppContext";
 import { S } from "../data/styles";
-import { t } from "../data/translations";
+import { t as _t } from "../data/translations"; void _t;
 import Nav from "../components/layout/Nav";
 import { FORMS } from "../data/forms";
 
@@ -47,15 +47,32 @@ const COMPETITOR_FEES: Record<string, { low: number; high: number }> = {
   i693:  { low: 150, high: 300 },
   i912:  { low: 100, high: 250 },
   i601:  { low: 395, high: 900 },
+  i601a: { low: 395, high: 900 },
+  i360:  { low: 395, high: 900 },
+  i918:  { low: 395, high: 900 },
+  n600:  { low: 289, high: 559 },
+  n565:  { low: 189, high: 395 },
+  ar11:  { low: 50, high: 150 },
+  i907:  { low: 150, high: 350 },
+  i829:  { low: 500, high: 1200 },
+  i290b: { low: 300, high: 700 },
+  i730:  { low: 200, high: 500 },
+  i914:  { low: 300, high: 800 },
+  n336:  { low: 250, high: 600 },
+  i212:  { low: 350, high: 800 },
+  i134:  { low: 100, high: 300 },
+  i824:  { low: 200, high: 500 },
 };
 
-/* USCIS filing fees (2025 actual) */
-// USCIS fees now match forms.ts directly — this map is kept for reference only
+/* USCIS filing fees (2025-2026 paper/mail fees) */
+// Paper/mail filing fees — online fees may be $50 less for eligible forms
 const USCIS_ACTUAL: Record<string, number> = {
-  i821: 510, daca: 85, i765: 560, i130: 625, n400: 760,
-  i485: 1440, i131: 575, i589: 100, i539: 470, i129f: 675,
-  i90: 465, i751: 750, i864: 120, i129: 780, i140: 715,
-  i693: 0, i912: 0, i601: 1050,
+  i821: 510, daca: 85, i765: 520, i130: 675, n400: 760,
+  i485: 1440, i131: 630, i589: 100, i539: 470, i129f: 675,
+  i90: 465, i751: 750, i864: 0, i129: 780, i140: 715,
+  i693: 0, i912: 0, i601: 930,
+  i601a: 630, i360: 515, i918: 0, n600: 1385, n565: 555, ar11: 0,
+  i907: 2805, i829: 3750, i290b: 800, i730: 0, i914: 0, n336: 750, i212: 930, i134: 0, i824: 465,
 };
 
 const tierColors: Record<string, string> = {
@@ -68,7 +85,7 @@ const tierLabels: Record<string, string> = {
 
 export default function PagePricing() {
   const { lang, go } = useContext(AppCtx) as any;
-  const isRTL = lang === "ar";
+  const isRTL = lang === "ar" || lang === "fa" || lang === "he";
 
   const totalOurFees = FORMS.reduce((s, f) => s + f.fee, 0);
   const totalAttorneyLow = Object.values(ATTORNEY_FEES).reduce((s, f) => s + f.low, 0);
@@ -98,17 +115,17 @@ export default function PagePricing() {
         <div style={{ ...S.crd, textAlign: "center", padding: 14, cursor: "default", background: "rgba(99,102,241,.12)", border: "1.5px solid rgba(99,102,241,.4)" }}>
           <div style={{ fontSize: 10, color: S.t2, fontWeight: 600, marginBottom: 4 }}>ImmIGuide</div>
           <div style={{ fontSize: 18, fontWeight: 900, color: S.pri }}>$199</div>
-          <div style={{ fontSize: 9, color: S.t2 }}>to $499</div>
+          <div style={{ fontSize: 11, color: S.t2 }}>to $499</div>
         </div>
         <div style={{ ...S.crd, textAlign: "center", padding: 14, cursor: "default" }}>
           <div style={{ fontSize: 10, color: S.t2, fontWeight: 600, marginBottom: 4 }}>Other Services</div>
           <div style={{ fontSize: 18, fontWeight: 900, color: S.wrn }}>$119</div>
-          <div style={{ fontSize: 9, color: S.t2 }}>to $1,199</div>
+          <div style={{ fontSize: 11, color: S.t2 }}>to $1,199</div>
         </div>
         <div style={{ ...S.crd, textAlign: "center", padding: 14, cursor: "default" }}>
           <div style={{ fontSize: 10, color: S.t2, fontWeight: 600, marginBottom: 4 }}>Attorneys</div>
           <div style={{ fontSize: 18, fontWeight: 900, color: S.err }}>$500</div>
-          <div style={{ fontSize: 9, color: S.t2 }}>to $6,000</div>
+          <div style={{ fontSize: 11, color: S.t2 }}>to $6,000</div>
         </div>
       </div>
 
@@ -123,7 +140,7 @@ export default function PagePricing() {
       </div>
 
       {/* Form-by-form comparison */}
-      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>All 18 Forms — Detailed Comparison</div>
+      <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>All {FORMS.length} Forms — Detailed Comparison</div>
 
       {/* Table header */}
       <div style={{
@@ -141,7 +158,7 @@ export default function PagePricing() {
       {FORMS.map((f, i) => {
         const att = ATTORNEY_FEES[f.id] || { low: 0, high: 0 };
         const comp = COMPETITOR_FEES[f.id] || { low: 0, high: 0 };
-        const savings = att.high - f.fee;
+        const _savings = att.high - f.fee; void _savings;
         const uscisActual = USCIS_ACTUAL[f.id] ?? f.uscis;
 
         return (
@@ -178,7 +195,7 @@ export default function PagePricing() {
         gap: 4, padding: "12px 10px", background: "rgba(99,102,241,.1)",
         borderRadius: 12, marginTop: 8, marginBottom: 16,
       }}>
-        <div style={{ fontWeight: 800, fontSize: 13 }}>TOTAL (all 18)</div>
+        <div style={{ fontWeight: 800, fontSize: 13 }}>TOTAL (all {FORMS.length})</div>
         <div style={{ textAlign: "right", fontWeight: 900, fontSize: 14, color: S.ok }}>${totalOurFees.toFixed(0)}</div>
         <div style={{ textAlign: "right", fontSize: 11, color: S.wrn }}>${totalCompLow.toLocaleString()}-{totalCompHigh.toLocaleString()}</div>
         <div style={{ textAlign: "right", fontSize: 11, color: S.err }}>${totalAttorneyLow.toLocaleString()}-{totalAttorneyHigh.toLocaleString()}</div>
@@ -207,7 +224,7 @@ export default function PagePricing() {
             <div style={{
               display: "grid", gridTemplateColumns: "80px 1fr 1fr 1fr",
               gap: 3, padding: "8px 6px", background: "rgba(99,102,241,.2)",
-              borderRadius: "12px 12px 0 0", fontSize: 9, fontWeight: 700, color: S.t2,
+              borderRadius: "12px 12px 0 0", fontSize: 11, fontWeight: 700, color: S.t2,
             }}>
               <div></div>
               <div style={{ textAlign: "center", color: S.ok }}>ImmIGuide</div>

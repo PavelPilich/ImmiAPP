@@ -15,7 +15,7 @@ export default function PageFormFill() {
   const auth = useAuth();
   const { debouncedSave, immediateSave, saveForm } = useAutoSave();
 
-  if (!selForm) return <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
+  if (!selForm) return <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}><Nav title="" backTo="dashboard" /></div>;
 
   const f = selForm;
   const sectionFields = f.fields.filter((x: any) => x.s === fSec);
@@ -25,8 +25,8 @@ export default function PageFormFill() {
 
   // Auto-save on savedFormId creation
   useEffect(() => {
-    if (saveForm.data?.id && !savedFormId) {
-      setSavedFormId(saveForm.data.id);
+    if ((saveForm.data as any)?.id && !savedFormId) {
+      setSavedFormId((saveForm.data as any).id);
     }
   }, [saveForm.data, savedFormId, setSavedFormId]);
 
@@ -110,7 +110,7 @@ export default function PageFormFill() {
   };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={f.name + " " + (fSec+1) + "/" + totalSections} backTo="formDetail" />
       <PB pct={pct} />
       {sectionFields.map(renderField)}

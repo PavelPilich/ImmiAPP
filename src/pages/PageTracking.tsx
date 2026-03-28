@@ -18,42 +18,66 @@ export default function PageTracking() {
   const activeForms = savedForms?.filter((f: any) => f.status !== 'draft') || [];
   const hasPaid = payments && payments.length > 0;
 
+  const latestForm = activeForms[0] as any;
+  const subMethod = latestForm?.submission_method || null;
+  const isMail = subMethod === 'mail';
+  const isDigital = subMethod === 'digital';
+
   const deriveSteps = () => {
     if (activeForms.length === 0) {
-      // Fallback: static steps
       return [
-        { l:"Forms Prepared",       s:"done" },
-        { l:"Payment Received",     s:"done" },
-        { l:"Submitted to USCIS",   s:"pending" },
-        { l:"USCIS Processing",     s:"waiting" },
-        { l:"Decision",             s:"waiting" },
+        { l: t(lang, "stepPayUs") || "Forms Prepared", s:"done" },
+        { l: t(lang, "paid") || "Payment Received", s:"done" },
+        { l: t(lang, "submitApp") || "Submitted", s:"pending" },
+        { l: t(lang, "uscisProcessingStep") || "USCIS Processing", s:"waiting" },
+        { l: t(lang, "decisionStep") || "Decision", s:"waiting" },
       ];
     }
 
-    const latestForm = activeForms[0];
     const status = latestForm?.status || 'draft';
 
+    if (isDigital) {
+      return [
+        { l: t(lang, "stepPayUs") || "Forms Prepared", s: ["docs_pending","paid","submitted","processing","decided"].includes(status) ? "done" : "pending" },
+        { l: t(lang, "paid") || "Payment Received", s: hasPaid || ["paid","submitted","processing","decided"].includes(status) ? "done" : "waiting" },
+        { l: t(lang, "filedOnUscis") || "Filed on USCIS.gov", s: ["submitted","processing","decided"].includes(status) ? "done" : status === "paid" ? "pending" : "waiting" },
+        { l: t(lang, "uscisProcessingStep") || "USCIS Processing", s: ["processing","decided"].includes(status) ? "done" : status === "submitted" ? "pending" : "waiting" },
+        { l: t(lang, "decisionStep") || "Decision", s: status === "decided" ? "done" : "waiting" },
+      ];
+    }
+
+    // Mail flow (default)
     return [
-      { l: "Forms Prepared", s: ["docs_pending","paid","submitted","processing","decided"].includes(status) ? "done" : "pending" },
-      { l: "Payment Received", s: hasPaid || ["paid","submitted","processing","decided"].includes(status) ? "done" : "waiting" },
-      { l: "Submitted to USCIS", s: ["submitted","processing","decided"].includes(status) ? "done" : status === "paid" ? "pending" : "waiting" },
-      { l: "USCIS Processing", s: ["processing","decided"].includes(status) ? "done" : status === "submitted" ? "pending" : "waiting" },
-      { l: "Decision", s: status === "decided" ? "done" : "waiting" },
+      { l: t(lang, "stepPayUs") || "Forms Prepared", s: ["docs_pending","paid","submitted","processing","decided"].includes(status) ? "done" : "pending" },
+      { l: t(lang, "paid") || "Payment Received", s: hasPaid || ["paid","submitted","processing","decided"].includes(status) ? "done" : "waiting" },
+      { l: t(lang, "appReceivedByTeam") || "Received by Team", s: ["submitted","processing","decided"].includes(status) ? "done" : status === "paid" ? "pending" : "waiting" },
+      { l: t(lang, "printingAndReview") || "Printing & Review", s: ["processing","decided"].includes(status) ? "done" : status === "submitted" ? "pending" : "waiting" },
+      { l: t(lang, "mailedToUscis") || "Mailed to USCIS", s: ["processing","decided"].includes(status) ? "done" : "waiting" },
+      { l: t(lang, "uscisProcessingStep") || "USCIS Processing", s: ["processing","decided"].includes(status) ? "done" : "waiting" },
+      { l: t(lang, "decisionStep") || "Decision", s: status === "decided" ? "done" : "waiting" },
     ];
   };
 
   const steps = deriveSteps();
-  const displayRef = activeForms[0]?.case_reference || caseRef;
+  const displayRef = latestForm?.tracking_number || latestForm?.case_reference || caseRef;
 
   const colors: any = { done:S.ok, pending:S.wrn, waiting:"rgba(147,197,253,.15)" };
   const icons: any  = { done:"✓", pending:"⏳", waiting:"—" };
-  const descs: any  = { done:"Completed", pending:"In progress", waiting:"Awaiting" };
+  const descs: any  = { done: t(lang,"complete") || "Completed", pending: t(lang,"processing") || "In progress", waiting: t(lang,"pending") || "Awaiting" };
 
   return (
-    <div style={S.page} dir={lang==="ar"?"rtl":"ltr"}>
+    <div style={S.page} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
       <Nav title={t(lang, "tracking")} backTo="dashboard" />
       <div style={{ ...S.crd, padding:16, textAlign:"center", marginBottom:16 }}>
-        <div style={{ fontSize:13, color:S.t2 }}>Case</div>
+        {(isMail || isDigital) && (
+          <div style={{
+            display:"inline-block", padding:"3px 12px", borderRadius:8, marginBottom:8,
+            background: isMail ? "rgba(251,191,36,.15)" : "rgba(52,211,153,.15)",
+            border: "1px solid " + (isMail ? "rgba(251,191,36,.4)" : "rgba(52,211,153,.4)"),
+            fontSize:11, fontWeight:800, color: isMail ? S.wrn : S.ok, letterSpacing:1,
+          }}>{isMail ? ("📦 " + t(lang, "trackingMailBadge")) : ("🌐 " + t(lang, "trackingDigitalBadge"))}</div>
+        )}
+        <div style={{ fontSize:13, color:S.t2 }}>{t(lang, "trackingNumber") || "Case"}</div>
         <div style={{ fontSize:18, fontWeight:800, color:S.pri, letterSpacing:1, marginTop:4 }}>{displayRef}</div>
       </div>
       {steps.map((x, i) => (
