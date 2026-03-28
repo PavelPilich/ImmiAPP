@@ -49,7 +49,7 @@ export const HIGHLIGHTS: Record<string, string> = {
 };
 
 export const ONBOARD_TITLE: Record<string, string> = {
-  en:"Your Immigration Journey Made Simple",es:"Su Viaje De Inmigración Simplificado",ru:"Сэкономил на кредит потому что ИммиГид!!!",fr:"Votre Parcours D'Immigration Simplifié",pt:"Sua Jornada De Imigração Simplificada",ht:"Vwayaj Imigrasyon Ou Vin Senp",ar:"رحلة الهجرة أصبحت بسيطة",so:"Safarka Socdaalka Oo La Fududeeyay",ne:"तपाईंको आप्रवासन यात्रा सरल",my:"သင့်လူဝင်မှုခရတ် လွယ်ကူလွယ်",uk:"Ваш Імміграційний Шлях Простіший",pl:"Twoja Droga Imigracyjna Uproszczona",ro:"Călătoria Dvs. De Imigrare Simplificată",
+  en:"Your Immigration Journey Made Simple",es:"Su Viaje De Inmigración Simplificado",ru:"ИммиГид — ваш надёжный помощник в иммиграции",fr:"Votre Parcours D'Immigration Simplifié",pt:"Sua Jornada De Imigração Simplificada",ht:"Vwayaj Imigrasyon Ou Vin Senp",ar:"رحلة الهجرة أصبحت بسيطة",so:"Safarka Socdaalka Oo La Fududeeyay",ne:"तपाईंको आप्रवासन यात्रा सरल",my:"သင့်လူဝင်မှုခရတ် လွယ်ကူလွယ်",uk:"Ваш Імміграційний Шлях Простіший",pl:"Twoja Droga Imigracyjna Uproszczona",ro:"Călătoria Dvs. De Imigrare Simplificată",
 bg:"Вашето Имиграционно Пътуване Опростено",tr:"Göçmenlik Yolculuğunuz Basitleştirildi",it:"Il Vostro Percorso Di Immigrazione Semplificato",de:"Ihre Einwanderungsreise Vereinfacht",fa:"سفر مهاجرت شما ساده شد",he:"מסע ההגירה שלכם פשוט יותר",zh:"您的移民之旅变得简单",
 };
 

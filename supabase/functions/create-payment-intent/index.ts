@@ -52,8 +52,8 @@ serve(async (req) => {
 
     const { form_id, package_type, amount_cents, promo_code } = await req.json();
 
-    // Server-side promo validation
-    let discountCents = 0;
+    // Discount is already applied client-side; use amount_cents as-is to avoid double discount.
+    // Promo validation still runs to increment usage counters.
     if (promo_code) {
       const { data: promo } = await supabase
         .from("promo_codes")
@@ -69,9 +69,7 @@ serve(async (req) => {
         const withinUses = !promo.max_uses || promo.current_uses < promo.max_uses;
 
         if (now >= validFrom && (!validUntil || now <= validUntil) && withinUses) {
-          discountCents = Math.round(amount_cents * promo.discount_percent / 100);
-
-          // Increment usage
+          // Increment usage counter only (discount already applied client-side)
           await supabase
             .from("promo_codes")
             .update({ current_uses: promo.current_uses + 1 })
@@ -80,7 +78,7 @@ serve(async (req) => {
       }
     }
 
-    const finalAmount = Math.max(amount_cents - discountCents, 50); // Stripe minimum is $0.50
+    const finalAmount = Math.max(amount_cents, 50); // Stripe minimum is $0.50
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: finalAmount,
@@ -90,7 +88,7 @@ serve(async (req) => {
         form_id: form_id || "unknown",
         package_type: package_type || "pdf",
         promo_code: promo_code || "",
-        discount_cents: String(discountCents),
+        discount_cents: "0", // discount applied client-side
       },
     });
 

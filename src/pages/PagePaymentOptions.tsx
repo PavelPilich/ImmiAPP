@@ -103,13 +103,14 @@ export default function PagePaymentOptions() {
     { id: "paypal", icon: "🅿️", label: t(lang, "paypal") },
     { id: "zelle", icon: "⚡", label: t(lang, "zelle") },
     { id: "bank", icon: "🏦", label: t(lang, "bankTransfer") },
-    { id: "applepay", icon: "🍎", label: t(lang, "applePay") },
-    { id: "googlepay", icon: "🔵", label: t(lang, "googlePay") },
+    { id: "applepay", icon: "🍎", label: t(lang, "applePay"), comingSoon: true },
+    { id: "googlepay", icon: "🔵", label: t(lang, "googlePay"), comingSoon: true },
   ];
 
   const canSubmitNonStripe = () => {
     if (!method) return false;
     if (method === "card" || method === "paypal") return false;
+    if (method === "applepay" || method === "googlepay") return false;
     return true;
   };
 
@@ -144,14 +145,16 @@ export default function PagePaymentOptions() {
       <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 12, color: "#fff" }}>{t(lang, "selectPayMethod")}</div>
 
       {methods.map(m => (
-        <div key={m.id} onClick={() => { setMethod(m.id); setError(null); }} style={{
+        <div key={m.id} onClick={() => { if (!m.comingSoon) { setMethod(m.id); setError(null); } }} style={{
           ...S.crd, border: method === m.id ? "2px solid " + S.priBtn : "1px solid " + S.bdr,
           background: method === m.id ? "rgba(99,102,241,.15)" : "rgba(255,255,255,.07)",
           padding: "14px 16px", display: "flex", alignItems: "center", gap: 12, transition: "all .2s",
+          opacity: m.comingSoon ? 0.5 : 1,
         }}>
           <div style={{ width: 24, height: 24, borderRadius: 12, border: method === m.id ? "6px solid " + S.priBtn : "2px solid rgba(255,255,255,.3)", background: method === m.id ? S.pri : "transparent", flexShrink: 0, transition: "all .2s" }} />
           <span style={{ fontSize: 24 }}>{m.icon}</span>
           <span style={{ fontSize: 15, fontWeight: 600, flex: 1 }}>{m.label}</span>
+          {m.comingSoon && <span style={{ fontSize: 11, color: S.t2, background: "rgba(255,255,255,.1)", borderRadius: 8, padding: "2px 8px", fontWeight: 700 }}>Coming Soon</span>}
           {method === m.id && <span style={{ color: S.pri, fontSize: 18 }}>✓</span>}
         </div>
       ))}

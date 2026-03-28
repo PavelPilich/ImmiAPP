@@ -35,7 +35,7 @@ export default function PageDone() {
       <p style={{ color:S.t2, marginBottom:20 }}>{te(lang, "thankYou")} <strong style={{ color:"#fff", fontSize:18, fontWeight:900, letterSpacing:1 }}>{lang === "ru" ? "ИММИГИД!" : lang === "uk" ? "ІММІГІД!" : "IMMIGUIDE!"}</strong></p>
       {lang === "ru" && (
         <div style={{ background:"rgba(251,191,36,.12)", border:"1px solid rgba(251,191,36,.4)", borderRadius:14, padding:16, marginBottom:16, textAlign:"center" }}>
-          <div style={{ fontSize:17, color:"#fbbf24", fontWeight:800, lineHeight:1.5 }}>Сэкономил на кредит потому что ИммиГид!!!</div>
+          <div style={{ fontSize:17, color:"#fbbf24", fontWeight:800, lineHeight:1.5 }}>ИммиГид — ваш надёжный помощник в иммиграции</div>
           <div style={{ fontSize:15, color:"#fff", fontWeight:700, marginTop:8 }}>С нами идёшь — дешевле платёж!</div>
         </div>
       )}

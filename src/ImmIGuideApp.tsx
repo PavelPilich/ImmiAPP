@@ -245,7 +245,7 @@ const HIGHLIGHTS = {
 };
 
 const ONBOARD_TITLE = {
-  en:"Your Immigration Journey Made Simple",es:"Su Viaje De Inmigración Simplificado",ru:"Сэкономил на кредит потому что ИммиГид!!!",fr:"Votre Parcours D'Immigration Simplifié",pt:"Sua Jornada De Imigração Simplificada",ht:"Vwayaj Imigrasyon Ou Vin Senp",ar:"رحلة الهجرة أصبحت بسيطة",so:"Safarka Socdaalka Oo La Fududeeyay",ne:"तपाईंको आप्रवासन यात्रा सरल",my:"သင့်လူဝင်မှုခရတ် လွယ်ကူလွယ်",
+  en:"Your Immigration Journey Made Simple",es:"Su Viaje De Inmigración Simplificado",ru:"ИммиГид — ваш надёжный помощник в иммиграции",fr:"Votre Parcours D'Immigration Simplifié",pt:"Sua Jornada De Imigração Simplificada",ht:"Vwayaj Imigrasyon Ou Vin Senp",ar:"رحلة الهجرة أصبحت بسيطة",so:"Safarka Socdaalka Oo La Fududeeyay",ne:"तपाईंको आप्रवासन यात्रा सरल",my:"သင့်လူဝင်မှုခရတ် လွယ်ကူလွယ်",
 };
 
 const ONBOARD_STEPS = [
@@ -1269,7 +1269,7 @@ function PageDone() {
       <p style={{ color:S.t2, marginBottom:20 }}>{lang === "ru" ? "Спасибо что выбрали ИммиГид!" : "Thank you for choosing ImmIGuide!"}</p>
       {lang === "ru" && (
         <div style={{ background:"rgba(251,191,36,.12)", border:"1px solid rgba(251,191,36,.4)", borderRadius:14, padding:16, marginBottom:16, textAlign:"center" }}>
-          <div style={{ fontSize:17, color:"#fbbf24", fontWeight:800, lineHeight:1.5 }}>Сэкономил на кредит потому что ИммиГид!!!</div>
+          <div style={{ fontSize:17, color:"#fbbf24", fontWeight:800, lineHeight:1.5 }}>ИммиГид — ваш надёжный помощник в иммиграции</div>
           <div style={{ fontSize:15, color:"#fff", fontWeight:700, marginTop:8 }}>С нами идёшь — дешевле платёж!</div>
         </div>
       )}

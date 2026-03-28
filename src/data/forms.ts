@@ -213,7 +213,7 @@ export const FORMS: USCISForm[] = [
 
   { id:"i730", name:"I-730", desc:"goalRefugeeFamily", tier:"complex", fee:179.99, uscis:0, sections:3, fieldCount:18, time:"12-36", fields:[
     {s:0,k:"firstName",t:"text"},{s:0,k:"middleName",t:"text"},{s:0,k:"lastName",t:"text"},{s:0,k:"dob",t:"date"},{s:0,k:"countryOfBirth",t:"country"},{s:0,k:"aNumber",t:"text"},
-    {s:1,k:"refugeeStatus",t:"text"},{s:1,k:"asylumGrantDate",t:"date"},{s:1,k:"beneficiaryRelationship",t:"select",opts:["spouse","child"]},{s:1,k:"spouseName",t:"text"},{s:1,k:"spouseDob",t:"date"},{s:1,k:"countryOfBirth",t:"country"},
+    {s:1,k:"refugeeStatus",t:"text"},{s:1,k:"asylumGrantDate",t:"date"},{s:1,k:"beneficiaryRelationship",t:"select",opts:["spouse","child"]},{s:1,k:"spouseName",t:"text"},{s:1,k:"spouseDob",t:"date"},{s:1,k:"beneficiaryCountryOfBirth",t:"country"},
     {s:2,k:"address",t:"text"},{s:2,k:"phone",t:"tel"},{s:2,k:"email",t:"email"},{s:2,k:"maritalStatus",t:"select",opts:["single","married","divorced","widowed"]},{s:2,k:"criminalHistory",t:"select",opts:["no","yes"]},{s:2,k:"priorApplications",t:"select",opts:["no","yes"]}
   ]},
 
