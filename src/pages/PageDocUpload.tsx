@@ -24,6 +24,21 @@ export default function PageDocUpload() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Validate file type
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+    if (!allowedTypes.includes(file.type)) {
+      alert('Only PDF, JPG, and PNG files are allowed.');
+      e.target.value = '';
+      return;
+    }
+
+    // Validate file size (10MB max)
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File size must be under 10MB.');
+      e.target.value = '';
+      return;
+    }
+
     if (ups[k]) URL.revokeObjectURL(ups[k]);
     setUps((p: any) => ({ ...p, [k]: URL.createObjectURL(file) }));
 
@@ -61,8 +76,8 @@ export default function PageDocUpload() {
             </div>
           ) : (
             <div style={{ display:"flex", gap:8 }}>
-              <input ref={camRefs[d.k]} type="file" accept="image/*" capture="environment" style={{ display:"none" }} onChange={e => handleFile(d.k, e)} />
-              <input ref={fileRefs[d.k]} type="file" accept="image/*,.pdf" style={{ display:"none" }} onChange={e => handleFile(d.k, e)} />
+              <input ref={camRefs[d.k]} type="file" accept="image/jpeg,image/png,image/jpg" capture="environment" style={{ display:"none" }} onChange={e => handleFile(d.k, e)} />
+              <input ref={fileRefs[d.k]} type="file" accept=".pdf,image/jpeg,image/jpg,image/png" style={{ display:"none" }} onChange={e => handleFile(d.k, e)} />
               <button onClick={() => camRefs[d.k].current?.click()} style={{ ...S.btn, flex:1, padding:"10px 8px", fontSize:13 }}>📷 Camera</button>
               <button onClick={() => fileRefs[d.k].current?.click()} style={{ ...S.btn, flex:1, padding:"10px 8px", fontSize:13, background:S.acc }}>📁 Upload</button>
             </div>

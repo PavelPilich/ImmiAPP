@@ -74,8 +74,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithEmail = async (email: string, password: string) => {
     if (!supabase) {
-      mockLogin('User', email)
-      return
+      if (import.meta.env.PROD) throw new Error('Authentication service is not configured. Please contact support.');
+      mockLogin('User', email);
+      return;
     }
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) throw error
@@ -83,8 +84,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUpWithEmail = async (email: string, password: string, fullName?: string) => {
     if (!supabase) {
-      mockLogin(fullName || 'User', email)
-      return
+      if (import.meta.env.PROD) throw new Error('Authentication service is not configured. Please contact support.');
+      mockLogin(fullName || 'User', email);
+      return;
     }
     const { error } = await supabase.auth.signUp({
       email,
@@ -96,8 +98,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithGoogle = async () => {
     if (!supabase) {
-      mockLogin('Google User', 'user@gmail.com')
-      return
+      if (import.meta.env.PROD) throw new Error('Authentication service is not configured. Please contact support.');
+      mockLogin('Google User', 'user@gmail.com');
+      return;
     }
     const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' })
     if (error) throw error
@@ -105,8 +108,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithApple = async () => {
     if (!supabase) {
-      mockLogin('Apple User', 'user@icloud.com')
-      return
+      if (import.meta.env.PROD) throw new Error('Authentication service is not configured. Please contact support.');
+      mockLogin('Apple User', 'user@icloud.com');
+      return;
     }
     const { error } = await supabase.auth.signInWithOAuth({ provider: 'apple' })
     if (error) throw error

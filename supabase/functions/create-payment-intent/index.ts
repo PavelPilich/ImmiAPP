@@ -52,9 +52,54 @@ serve(async (req) => {
 
     const { form_id, package_type, amount_cents, promo_code } = await req.json();
 
-    // Discount is already applied client-side; use amount_cents as-is to avoid double discount.
-    // Promo validation still runs to increment usage counters.
-    if (promo_code) {
+    // Server-side price validation: recalculate based on form_id
+    let finalAmount = amount_cents;
+    if (form_id) {
+      const { data: formData } = await supabase
+        .from("forms")
+        .select("fee")
+        .eq("id", form_id)
+        .single();
+
+      if (formData) {
+        const deliveryFee = package_type === "printShip" ? 15 : package_type === "fullSvc" ? 25 : package_type === "express" ? 50 : 0;
+        const serverTotal = Math.round((formData.fee + deliveryFee) * 100);
+
+        // Apply promo discount server-side
+        if (promo_code) {
+          const { data: promo } = await supabase
+            .from("promo_codes")
+            .select("*")
+            .eq("code", promo_code.toUpperCase())
+            .eq("is_active", true)
+            .single();
+
+          if (promo) {
+            const now = new Date();
+            const validFrom = new Date(promo.valid_from);
+            const validUntil = promo.valid_until ? new Date(promo.valid_until) : null;
+            const withinUses = !promo.max_uses || promo.current_uses < promo.max_uses;
+
+            if (now >= validFrom && (!validUntil || now <= validUntil) && withinUses) {
+              const discountCents = Math.round(serverTotal * promo.discount_percent / 100);
+              finalAmount = serverTotal - discountCents;
+              // Increment usage counter
+              await supabase
+                .from("promo_codes")
+                .update({ current_uses: promo.current_uses + 1 })
+                .eq("id", promo.id);
+            }
+          }
+        }
+
+        // Use server-calculated amount, reject if client amount differs by more than 1 cent
+        if (Math.abs(finalAmount - amount_cents) > 1) {
+          console.warn(`Price mismatch: client=${amount_cents}, server=${finalAmount}. Using server amount.`);
+          finalAmount = serverTotal; // fallback without promo if mismatch
+        }
+      }
+    } else if (promo_code) {
+      // No form_id but promo provided: still validate promo
       const { data: promo } = await supabase
         .from("promo_codes")
         .select("*")
@@ -69,7 +114,8 @@ serve(async (req) => {
         const withinUses = !promo.max_uses || promo.current_uses < promo.max_uses;
 
         if (now >= validFrom && (!validUntil || now <= validUntil) && withinUses) {
-          // Increment usage counter only (discount already applied client-side)
+          const discountCents = Math.round(finalAmount * promo.discount_percent / 100);
+          finalAmount = finalAmount - discountCents;
           await supabase
             .from("promo_codes")
             .update({ current_uses: promo.current_uses + 1 })
@@ -78,7 +124,7 @@ serve(async (req) => {
       }
     }
 
-    const finalAmount = Math.max(amount_cents, 50); // Stripe minimum is $0.50
+    finalAmount = Math.max(finalAmount, 50); // Stripe minimum is $0.50
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: finalAmount,

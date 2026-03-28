@@ -154,6 +154,7 @@ export async function submitForm(params: {
   digitalDataPackage?: Record<string, any> | null
 }) {
   if (!supabase) {
+    if (import.meta.env.PROD) throw new Error('Database not configured');
     console.log('[mock] Form submitted:', params)
     return { id: params.savedFormId, tracking_number: params.trackingNumber, submission_method: params.submissionMethod }
   }
@@ -273,6 +274,7 @@ export async function recordPayment(params: {
   receiptUrl?: string | null
 }) {
   if (!supabase) {
+    if (import.meta.env.PROD) throw new Error('Database not configured');
     console.log('[mock] Payment recorded:', params)
     return null
   }
@@ -312,8 +314,7 @@ export async function getPayments(userId: string) {
 
 export async function validatePromoCode(code: string): Promise<{ valid: boolean; discountPercent: number }> {
   if (!supabase) {
-    // Fallback: hardcoded WELCOME10
-    if (code.toUpperCase() === 'WELCOME10') {
+    if (import.meta.env.DEV && code.toUpperCase() === 'WELCOME10') {
       return { valid: true, discountPercent: 10 }
     }
     return { valid: false, discountPercent: 0 }

@@ -975,7 +975,7 @@ function PagePaymentOptions() {
     { id:"bank",      icon:"🏦", label:t(lang, "bankTransfer") },
     { id:"applepay",  icon:"🍎", label:t(lang, "applePay") },
     { id:"googlepay", icon:"🔵", label:t(lang, "googlePay") },
-    { id:"admin",     icon:"🔧", label:"Admin Test Bypass" },
+    ...(import.meta.env.DEV ? [{ id:"admin", icon:"🔧", label:"Admin Test Bypass" }] : []),
   ];
 
   const canSubmit = () => {
@@ -1064,7 +1064,7 @@ function PagePaymentOptions() {
         <div style={{ ...S.crd, padding:20, marginTop:4, cursor:"default", background:"rgba(34,197,94,.08)", border:"1px solid rgba(34,197,94,.3)" }}>
           <div style={{ fontSize:15, fontWeight:700, color:"#fff", marginBottom:12 }}>{t(lang, "bankInstr")}</div>
           <div style={{ background:"rgba(0,0,0,.3)", borderRadius:10, padding:14 }}>
-            {[[t(lang,"bankName"),"Chase Bank"],[t(lang,"accountName"),"ImmIGuide LLC"],[t(lang,"routingNum"),"021000021"],[t(lang,"accountNum"),"483726159"],[t(lang,"total"),"$"+tot]].map(([lbl,val],i) => (
+            {[[t(lang,"bankName"),import.meta.env.VITE_BANK_NAME||"Contact support"],[t(lang,"accountName"),import.meta.env.VITE_BANK_ACCOUNT_NAME||"Contact support"],[t(lang,"routingNum"),import.meta.env.VITE_BANK_ROUTING||"Contact support"],[t(lang,"accountNum"),import.meta.env.VITE_BANK_ACCOUNT||"Contact support"],[t(lang,"total"),"$"+tot]].map(([lbl,val],i) => (
               <div key={i} style={{ display:"flex", justifyContent:"space-between", marginBottom:i<4?8:0 }}>
                 <span style={{ color:S.t2, fontSize:13 }}>{lbl}</span>
                 <span style={{ fontWeight:700, fontSize:14, color:i===4?S.ok:"#fff" }}>{val}</span>
@@ -1093,8 +1093,8 @@ function PagePaymentOptions() {
         </div>
       )}
 
-      {/* ── Admin bypass ── */}
-      {method === "admin" && (
+      {/* ── Admin bypass (DEV only) ── */}
+      {import.meta.env.DEV && method === "admin" && (
         <div style={{ ...S.crd, padding:20, marginTop:4, cursor:"default", background:"rgba(251,191,36,.08)", border:"1px solid rgba(251,191,36,.3)", textAlign:"center" }}>
           <div style={{ fontSize:44, marginBottom:8 }}>🔧</div>
           <div style={{ fontSize:15, fontWeight:700, color:S.wrn, marginBottom:8 }}>Admin Test Mode</div>

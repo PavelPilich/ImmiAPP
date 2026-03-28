@@ -23,7 +23,7 @@ export default function PagePaymentOptions() {
   if (!selForm) return <div style={S.page} dir={isRTL ? "rtl" : "ltr"}><Nav title="" backTo="dashboard" /></div>;
   const tot = (payTotal || 0).toFixed(2);
   const amountCents = Math.round((payTotal || 0) * 100);
-  const discountCents = Math.round(amountCents * discountPct / (100 - discountPct)) || 0;
+  const discountCents = discountPct >= 100 ? amountCents : Math.round(amountCents * discountPct / (100 - discountPct)) || 0;
   const userId = auth.user?.id;
 
   const doRecordPayment = (paymentMethod: string, extra?: { stripePaymentIntentId?: string; paypalOrderId?: string }) => {
