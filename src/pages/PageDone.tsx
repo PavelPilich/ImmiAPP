@@ -29,7 +29,7 @@ export default function PageDone() {
 
   return (
     <div style={{ ...S.page, textAlign:"center", paddingTop:40 }} dir={["ar","fa","he"].includes(lang)?"rtl":"ltr"}>
-      <Nav title={t(lang, "complete")} backTo="submitConfirm" />
+      <Nav title={t(lang, "complete")} backTo="dashboard" />
       <div style={{ fontSize:80, marginBottom:8 }}>🎉🎊✨</div>
       <h1 style={{ fontSize:26, marginBottom:8 }}>{t(lang, "complete")}</h1>
       <p style={{ color:S.t2, marginBottom:20 }}>{te(lang, "thankYou")} <strong style={{ color:"#fff", fontSize:18, fontWeight:900, letterSpacing:1 }}>{lang === "ru" ? "ИММИГИД!" : lang === "uk" ? "ІММІГІД!" : "IMMIGUIDE!"}</strong></p>

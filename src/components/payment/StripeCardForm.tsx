@@ -7,6 +7,8 @@ import {
 } from "@stripe/react-stripe-js";
 import { stripePromise, isStripeConfigured, createPaymentIntent } from "../../lib/stripe";
 import { S } from "../../data/styles";
+import { t } from "../../data/translations";
+import type { LangCode } from "../../types";
 
 interface StripeCardFormProps {
   amount: number;
@@ -26,13 +28,13 @@ function CardForm({
   amount,
   onSuccess,
   onError,
-  lang: _lang,
+  lang,
   clientSecret,
 }: {
   amount: number;
   onSuccess: (paymentIntentId?: string) => void;
   onError: (msg: string) => void;
-  lang: string;
+  lang: string | LangCode;
   clientSecret: string | null;
 }) {
   const stripe = useStripe();
@@ -114,7 +116,7 @@ function CardForm({
           }}
         >
           <div style={{ fontSize: 11, color: S.wrn, fontWeight: 700 }}>
-            DEV MODE — Set VITE_STRIPE_PUBLISHABLE_KEY for real payments
+            {t(lang as LangCode, "stripeDevMode")}
           </div>
         </div>
       )}
@@ -138,7 +140,7 @@ function CardForm({
             marginBottom: 8,
           }}
         >
-          Card Details
+          {t(lang as LangCode, "stripeCardDetails")}
         </label>
         <div
           style={{
@@ -175,7 +177,7 @@ function CardForm({
         }}
       >
         {processing
-          ? "Processing..."
+          ? t(lang as LangCode, "stripeProcessing")
           : `Submit Payment — $${amount.toFixed(2)}`}
       </button>
 
@@ -188,7 +190,7 @@ function CardForm({
           fontWeight: 600,
         }}
       >
-        Secure payment powered by Stripe
+        {t(lang as LangCode, "stripeSecure")}
       </div>
     </>
   );

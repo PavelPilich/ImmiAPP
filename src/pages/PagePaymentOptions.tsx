@@ -28,6 +28,7 @@ export default function PagePaymentOptions() {
 
   const doRecordPayment = (paymentMethod: string, extra?: { stripePaymentIntentId?: string; paypalOrderId?: string }) => {
     if (userId && savedFormId) {
+      const isPendingMethod = paymentMethod === 'zelle' || paymentMethod === 'bank';
       recordPayment.mutate({
         userId,
         savedFormId,
@@ -35,10 +36,10 @@ export default function PagePaymentOptions() {
         amountCents,
         promoCode: promoCode || null,
         discountCents,
-        status: 'completed',
+        status: isPendingMethod ? 'pending' : 'completed',
         ...extra,
       });
-      updateStatus.mutate({ formId: savedFormId, status: 'paid' });
+      updateStatus.mutate({ formId: savedFormId, status: isPendingMethod ? 'payment_pending' : 'paid' });
     }
   };
 
