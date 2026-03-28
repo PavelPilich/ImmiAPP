@@ -504,6 +504,10 @@ export const T: Record<string, Record<string, string>> = {
   free:               { en:"FREE",es:"GRATIS",ru:"БЕСПЛАТНО",fr:"GRATUIT",pt:"GRÁTIS",ht:"GRATIS",ar:"مجاني",so:"BILAASH",ne:"निःशुल्क",my:"အခမဲ့",uk:"БЕЗКОШТОВНО",pl:"BEZPŁATNIE",ro:"GRATUIT",bg:"БЕЗПЛАТНО",tr:"ÜCRETSİZ",it:"GRATIS",de:"KOSTENLOS",fa:"رایگان",he:"חינם",zh:"免费" },
 
   and:                { en:"and",es:"y",ru:"и",fr:"et",pt:"e",ht:"ak",ar:"و",so:"iyo",ne:"र",my:"နှင့်",uk:"та",pl:"i",ro:"și",bg:"и",tr:"ve",it:"e",de:"und",fa:"و",he:"ו",zh:"和" },
+  form:               { en:"Form",es:"Formulario",ru:"Форма",fr:"Formulaire",pt:"Formulário",ht:"Fòm",ar:"نموذج",so:"Foom",ne:"फारम",my:"ဖော်",uk:"Форма",pl:"Formularz",ro:"Formular",bg:"Форма",tr:"Form",it:"Modulo",de:"Formular",fa:"فرم",he:"טופס",zh:"表格" },
+  infoOnUSCIS:        { en:"Info on USCIS",es:"Info sobre USCIS",ru:"Информация USCIS",fr:"Info USCIS",pt:"Info USCIS",ht:"Enfòmasyon USCIS",ar:"معلومات USCIS",so:"Macluumaad USCIS",ne:"USCIS जानकारी",my:"USCIS သတင်းစာ",uk:"Інформація USCIS",pl:"Info USCIS",ro:"Info USCIS",bg:"Инфо USCIS",tr:"USCIS Bilgisi",it:"Info USCIS",de:"USCIS Info",fa:"اطلاعات USCIS",he:"מידע USCIS",zh:"USCIS 信息" },
+  pending:            { en:"Pending",es:"Pendiente",ru:"В ожидании",fr:"En attente",pt:"Pendente",ht:"An tann",ar:"قيد الانتظار",so:"Rajeyn",ne:"पेन्डिङ",my:"စောင့်ကစားနေ",uk:"Очікує",pl:"Oczekujący",ro:"În așteptare",bg:"Чакащ",tr:"Beklemede",it:"In attesa",de:"Ausstehend",fa:"در انتظار",he:"ממתין",zh:"待处理" },
+  viewFormInfo:       { en:"View Form Info",es:"Ver Info del Formulario",ru:"Посмотреть информацию о форме",fr:"Voir Info Formulaire",pt:"Ver Info Formulário",ht:"Wè Enfòmasyon Fòm",ar:"عرض معلومات النموذج",so:"Eeg Foom",ne:"फारम जानकारी हेर्नुहोस्",my:"ဖော်သတင်းစာကိုဖြေသွားပါ",uk:"Перегляд інформації форми",pl:"Zobacz Info Formularza",ro:"Vezi Info Formular",bg:"Вижди инфо за формата",tr:"Form Bilgisini Görüntüle",it:"Vedi Info Modulo",de:"Formular-Info anzeigen",fa:"مشاهده اطلاعات فرم",he:"צפה במידע טופס",zh:"查看表格信息" },
 };
 
 /** Bilingual label -- adds English parens for non-en */

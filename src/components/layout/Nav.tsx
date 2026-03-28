@@ -24,7 +24,7 @@ function Nav({ title, backTo }: NavProps) {
             : <div style={{ width:40 }} />
           }
           <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:2 }}>
-            <span className="il" style={{ fontSize:128 }}>🗽</span>
+            <span className="il" style={{ fontSize:28 }}>🗽</span>
             <span className="it">{title || t(lang, "appName")}</span>
           </div>
           <LangDropdown compact />

@@ -72,8 +72,9 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState<User>({ name: "", email: "" });
   const [selForm, setSelForm] = useState<any>(null);
+  const SENSITIVE_KEYS = ["ssn","aNumber","passportNum","address","cardNumber","i94"];
   const [fd, setFd] = useState<Record<string, string>>(() => {
-    try { const saved = localStorage.getItem("immiguide_fd"); return saved ? JSON.parse(saved) : {}; } catch { return {}; }
+    try { const saved = localStorage.getItem("immiguide_fd"); if (!saved) return {}; const raw = JSON.parse(saved); Object.keys(raw).forEach(k => { if (SENSITIVE_KEYS.includes(k) && raw[k]) try { raw[k] = atob(raw[k]); } catch {} }); return raw; } catch { return {}; }
   });
   const [fSec, setFSec] = useState(0);
   const [pkg, setPkg] = useState<PackageType | null>(null);
@@ -96,7 +97,7 @@ export default function App() {
   /* ── Persist to localStorage ── */
   useEffect(() => { localStorage.setItem("immiguide_lang", lang); }, [lang]);
   useEffect(() => {
-    if (Object.keys(fd).length > 0) localStorage.setItem("immiguide_fd", JSON.stringify(fd));
+    if (Object.keys(fd).length > 0) { const enc = {...fd}; Object.keys(enc).forEach(k => { if (SENSITIVE_KEYS.includes(k) && enc[k]) try { enc[k] = btoa(enc[k]); } catch {} }); localStorage.setItem("immiguide_fd", JSON.stringify(enc)); }
   }, [fd]);
 
   /* ── Navigation ── */
@@ -180,7 +181,7 @@ export default function App() {
       <AuthSync />
       <AdminPanel />
       <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", minHeight: "100vh", background: "#080e27", padding: "16px 0" }}>
-        <div style={{ width: 390, minHeight: 760, maxHeight: 844, overflowY: "auto", overflowX: "hidden", borderRadius: 40, border: "6px solid rgba(147,197,253,.15)", boxShadow: "0 0 60px rgba(99,102,241,.2),0 20px 60px rgba(0,0,0,.4)", position: "relative", background: "linear-gradient(135deg,#0c1445,#1a237e 30%,#0d47a1 60%,#1a237e 80%,#0c1445)" }}>
+        <div style={{ width: "100%", maxWidth: 390, minHeight: 760, maxHeight: 844, overflowY: "auto", overflowX: "hidden", borderRadius: 40, border: "6px solid rgba(147,197,253,.15)", boxShadow: "0 0 60px rgba(99,102,241,.2),0 20px 60px rgba(0,0,0,.4)", position: "relative", background: "linear-gradient(135deg,#0c1445,#1a237e 30%,#0d47a1 60%,#1a237e 80%,#0c1445)" }}>
 
           {/* Statue of Liberty watermark */}
           <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none", zIndex: 1, overflow: "hidden" }}>
