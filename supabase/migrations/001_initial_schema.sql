@@ -187,3 +187,49 @@ create policy "Users can read own documents"
 create policy "Users can delete own documents"
   on storage.objects for delete to authenticated
   using (bucket_id = 'documents' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- ============================================================
+-- 8. USCIS FEES (reference table, read-only for users)
+-- ============================================================
+create table if not exists public.uscis_fees (
+  id uuid default gen_random_uuid() primary key,
+  form_id text not null unique,
+  fee int not null,
+  fee_online int,
+  pay_url text,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.uscis_fees enable row level security;
+
+create policy "Authenticated users can read USCIS fees"
+  on public.uscis_fees for select to authenticated using (true);
+
+-- ============================================================
+-- 9. SUPPORT TICKETS
+-- ============================================================
+create table if not exists public.support_tickets (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references auth.users(id) on delete cascade not null,
+  subject text not null,
+  message text not null,
+  status text not null default 'open',
+  priority text not null default 'normal',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index idx_support_tickets_user on public.support_tickets(user_id);
+
+alter table public.support_tickets enable row level security;
+
+create policy "Users can view own tickets"
+  on public.support_tickets for select using (auth.uid() = user_id);
+create policy "Users can insert own tickets"
+  on public.support_tickets for insert with check (auth.uid() = user_id);
+create policy "Users can update own tickets"
+  on public.support_tickets for update using (auth.uid() = user_id);
+
+create trigger set_support_tickets_updated_at
+  before update on public.support_tickets
+  for each row execute function public.set_updated_at();
