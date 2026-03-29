@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ImmiGuide</string>
+    <string name="title_activity_main">ImmiGuide</string>
+    <string name="package_name">com.manogrand.immiguide</string>
+    <string name="custom_url_scheme">com.manogrand.immiguide</string>
+</resources>
