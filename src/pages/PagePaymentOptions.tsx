@@ -128,7 +128,7 @@ export default function PagePaymentOptions() {
       {error && (
         <div style={{ background: "rgba(248,113,113,.15)", border: "1px solid rgba(248,113,113,.4)", borderRadius: 12, padding: 14, marginBottom: 12, textAlign: "center" }}>
           <div style={{ color: S.err, fontSize: 14, fontWeight: 600 }}>{error}</div>
-          <button onClick={() => setError(null)} style={{ color: S.t2, fontSize: 12, marginTop: 6, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Dismiss</button>
+          <button onClick={() => setError(null)} style={{ color: S.t2, fontSize: 12, marginTop: 6, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>{t(lang,"dismiss")||"Dismiss"}</button>
         </div>
       )}
 
@@ -155,7 +155,7 @@ export default function PagePaymentOptions() {
           <div style={{ width: 24, height: 24, borderRadius: 12, border: method === m.id ? "6px solid " + S.priBtn : "2px solid rgba(255,255,255,.3)", background: method === m.id ? S.pri : "transparent", flexShrink: 0, transition: "all .2s" }} />
           <span style={{ fontSize: 24 }}>{m.icon}</span>
           <span style={{ fontSize: 15, fontWeight: 600, flex: 1 }}>{m.label}</span>
-          {m.comingSoon && <span style={{ fontSize: 11, color: S.t2, background: "rgba(255,255,255,.1)", borderRadius: 8, padding: "2px 8px", fontWeight: 700 }}>Coming Soon</span>}
+          {m.comingSoon && <span style={{ fontSize: 11, color: S.t2, background: "rgba(255,255,255,.1)", borderRadius: 8, padding: "2px 8px", fontWeight: 700 }}>{t(lang,"comingSoon")||"Coming Soon"}</span>}
           {method === m.id && <span style={{ color: S.pri, fontSize: 18 }}>✓</span>}
         </div>
       ))}
@@ -193,7 +193,7 @@ export default function PagePaymentOptions() {
               <span style={{ fontWeight: 700, fontSize: 14, color: S.ok }}>${tot}</span>
             </div>
           </div>
-          <div style={{ fontSize: 12, color: S.t2, marginTop: 10, lineHeight: 1.5 }}>After sending via Zelle, click "{t(lang, "submitPayment")}" to confirm.</div>
+          <div style={{ fontSize: 12, color: S.t2, marginTop: 10, lineHeight: 1.5 }}>{t(lang,"zelleConfirmInstr")||("After sending via Zelle, tap \""+t(lang,"submitPayment")+"\" to confirm.")}</div>
         </div>
       )}
 
@@ -203,7 +203,7 @@ export default function PagePaymentOptions() {
           <div style={{ background: "rgba(0,0,0,.3)", borderRadius: 10, padding: 14 }}>
             <BankDetails lang={lang} tot={tot} />
           </div>
-          <div style={{ fontSize: 12, color: S.t2, marginTop: 10, lineHeight: 1.5 }}>After transferring, click "{t(lang, "submitPayment")}" to confirm.</div>
+          <div style={{ fontSize: 12, color: S.t2, marginTop: 10, lineHeight: 1.5 }}>{t(lang,"bankConfirmInstr")||("After transferring, tap \""+t(lang,"submitPayment")+"\" to confirm.")}</div>
         </div>
       )}
 
@@ -211,7 +211,7 @@ export default function PagePaymentOptions() {
         <div style={{ ...S.crd, padding: 20, marginTop: 4, cursor: "default", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.2)", textAlign: "center" }}>
           <div style={{ fontSize: 44, marginBottom: 8 }}>🍎</div>
           <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{t(lang, "applePay")}</div>
-          <div style={{ fontSize: 13, color: S.t2 }}>Tap "{t(lang, "submitPayment")}" to pay <strong style={{ color: "#fff" }}>${tot}</strong> with Apple Pay</div>
+          <div style={{ fontSize: 13, color: S.t2 }}>{t(lang,"tapToPayApple")||"Tap Submit Payment to pay with Apple Pay"} — <strong style={{ color: "#fff" }}>${tot}</strong></div>
         </div>
       )}
 
@@ -219,7 +219,7 @@ export default function PagePaymentOptions() {
         <div style={{ ...S.crd, padding: 20, marginTop: 4, cursor: "default", background: "rgba(66,133,244,.1)", border: "1px solid rgba(66,133,244,.3)", textAlign: "center" }}>
           <div style={{ fontSize: 44, marginBottom: 8 }}>🔵</div>
           <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{t(lang, "googlePay")}</div>
-          <div style={{ fontSize: 13, color: S.t2 }}>Tap "{t(lang, "submitPayment")}" to pay <strong style={{ color: "#fff" }}>${tot}</strong> with Google Pay</div>
+          <div style={{ fontSize: 13, color: S.t2 }}>{t(lang,"tapToPayGoogle")||"Tap Submit Payment to pay with Google Pay"} — <strong style={{ color: "#fff" }}>${tot}</strong></div>
         </div>
       )}
 

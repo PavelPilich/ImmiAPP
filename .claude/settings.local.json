@@ -57,7 +57,24 @@
       "WebFetch(domain:www.immigrationdirect.com)",
       "WebFetch(domain:feecalculator.us)",
       "Bash(npm run:*)",
-      "Bash(grep -n \"await supabase$\" /Users/smartconstructionremodelinginc/Documents/ImmiAPP/src/lib/api.ts)"
+      "Bash(grep -n \"await supabase$\" /Users/smartconstructionremodelinginc/Documents/ImmiAPP/src/lib/api.ts)",
+      "Bash(curl -s http://localhost:5174)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174)",
+      "Bash(ls -la src/pages/**/*.tsx src/pages/*.tsx)",
+      "Bash(lsof -ti:5174)",
+      "Bash(find /Users/smartconstructionremodelinginc/Documents/SmartConstruction/src -name *.tsx -type f)",
+      "Bash(wc -l /Users/smartconstructionremodelinginc/Documents/SmartConstruction/src/pages/**/*.tsx /Users/smartconstructionremodelinginc/Documents/SmartConstruction/src/pages/*.tsx)",
+      "Bash(grep -r \"5.*step\\\\|five.*step\\\\|step.*5\" /Users/smartconstructionremodelinginc/Documents/SmartConstruction/src --include=*.tsx --include=*.ts)",
+      "Bash(wc -l /Users/smartconstructionremodelinginc/Documents/SmartConstruction/src/pages/inspections/*.tsx)",
+      "Bash(node -e \"const l = require\\(''lucide-react''\\); console.log\\(''Brain:'', !!l.Brain, ''Cpu:'', !!l.Cpu\\)\")",
+      "Bash(node -e \"const l = require\\(''lucide-react''\\); console.log\\(''Brain:'', typeof l.Brain, ''Cpu:'', typeof l.Cpu\\)\")",
+      "Bash(wc -l src/pages/**/*.tsx src/pages/*.tsx)",
+      "Bash(find /Users/smartconstructionremodelinginc -maxdepth 4 -name *.html -path */public/* -o -name *.html -path */dist/*)",
+      "Bash(find /Users/smartconstructionremodelinginc -maxdepth 5 -name *.netlify* -o -name .vercel -o -name CNAME -o -name netlify.toml -o -name vercel.json)",
+      "Bash(.gitignore:*)",
+      "Bash(git init:*)",
+      "Bash(gh repo:*)",
+      "Bash(git push:*)"
     ]
   }
 }

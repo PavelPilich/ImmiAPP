@@ -58,18 +58,16 @@ export default function PagePay() {
       <div style={{ ...S.crd, padding:20 }}>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8 }}><span>{f.name + " — " + t(lang, "serviceFee")}</span><span style={{ fontWeight:700 }}>{"$" + f.fee}</span></div>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8 }}><span>{delLabel}</span><span style={{ fontWeight:700, color:delPr?S.pri:S.ok }}>{delPr ? "$"+delPr : "FREE"}</span></div>
-        {/* TODO: Shipping address form (name, address, city, state, zip) needed for printShip and fullSvc delivery options */}
         {(pkg==="printShip" || pkg==="fullSvc") && (
           <div style={{ ...S.crd, padding:16, marginTop:8, borderLeft:"3px solid #f59e0b" }}>
-            <div style={{ fontSize:13, fontWeight:600, color:"#fff", marginBottom:8 }}>Shipping Address</div>
-            <input placeholder="Full Name" style={{ ...S.inp, marginBottom:8 }} />
-            <input placeholder="Address Line 1" style={{ ...S.inp, marginBottom:8 }} />
+            <div style={{ fontSize:13, fontWeight:600, color:"#fff", marginBottom:8 }}>{t(lang,"shippingAddress")||"Shipping Address"}</div>
+            <input placeholder={t(lang,"fullName")||"Full Name"} style={{ ...S.inp, marginBottom:8 }} />
+            <input placeholder={t(lang,"addressLine1")||"Address Line 1"} style={{ ...S.inp, marginBottom:8 }} />
             <div style={{ display:"flex", gap:8 }}>
-              <input placeholder="City" style={{ ...S.inp, flex:2 }} />
-              <input placeholder="State" style={{ ...S.inp, flex:1 }} />
-              <input placeholder="ZIP" style={{ ...S.inp, flex:1 }} />
+              <input placeholder={t(lang,"city")||"City"} style={{ ...S.inp, flex:2 }} />
+              <input placeholder={t(lang,"state")||"State"} style={{ ...S.inp, flex:1 }} />
+              <input placeholder={t(lang,"zipCode")||"ZIP"} style={{ ...S.inp, flex:1 }} />
             </div>
-            {/* TODO: Wire these inputs to context/state and validate before payment */}
           </div>
         )}
         {disc > 0 && <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8, color:S.ok }}><span>{promoCode || "PROMO"} ({pct}%)</span><span style={{ fontWeight:700 }}>-${disc.toFixed(2)}</span></div>}
@@ -82,7 +80,7 @@ export default function PagePay() {
         </button>
       </div>
       {promoErr && <div style={{ color: S.err, fontSize: 12, marginBottom: 12 }}>{promoErr}</div>}
-      {promoOn && <div style={{ color: S.ok, fontSize: 12, marginBottom: 12 }}>Promo applied: {pct}% off</div>}
+      {promoOn && <div style={{ color: S.ok, fontSize: 12, marginBottom: 12 }}>{t(lang,"promoApplied")||"Promo applied"}: {pct}% {t(lang,"off")||"off"}</div>}
       <Btn onClick={() => go("paymentOptions")}>{t(lang, "payNow") + " — $" + tot.toFixed(2)}</Btn>
     </div>
   );

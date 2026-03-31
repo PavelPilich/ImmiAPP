@@ -57,15 +57,15 @@ export default function PageProfile() {
         <div style={{ width:80, height:80, borderRadius:40, background:S.priBtn, display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px", fontSize:32, color:"#fff" }}>{(name || user.name || "U")[0]}</div>
         {editing ? (
           <div style={{ textAlign: "left" }}>
-            <label style={{ fontSize: 12, color: S.t2 }}>Name</label>
+            <label style={{ fontSize: 12, color: S.t2 }}>{t(lang,"name")||"Name"}</label>
             <input value={name} onChange={e => setName(e.target.value)} onClick={() => { if (!name) setName("John Doe"); }} style={{ ...S.inp, marginBottom: 8 }} />
-            <label style={{ fontSize: 12, color: S.t2 }}>Phone</label>
+            <label style={{ fontSize: 12, color: S.t2 }}>{t(lang,"phone")||"Phone"}</label>
             <input value={phone} onChange={e => setPhone(e.target.value)} onClick={() => { if (!phone) setPhone("3051234567"); }} type="tel" style={{ ...S.inp, marginBottom: 8 }} />
             <div style={{ display: "flex", gap: 8 }}>
               <button onClick={handleSave} style={{ ...S.btn, flex: 1, padding: "8px 12px", fontSize: 13 }}>
-                {updateProfile.isPending ? "..." : "Save"}
+                {updateProfile.isPending ? "..." : (t(lang,"save")||"Save")}
               </button>
-              <button onClick={() => setEditing(false)} style={{ ...S.btnO, flex: 1, padding: "8px 12px", fontSize: 13 }}>Cancel</button>
+              <button onClick={() => setEditing(false)} style={{ ...S.btnO, flex: 1, padding: "8px 12px", fontSize: 13 }}>{t(lang,"cancel")||"Cancel"}</button>
             </div>
           </div>
         ) : (
@@ -74,17 +74,17 @@ export default function PageProfile() {
             <p style={{ color:S.t2 }}>{user.email}</p>
             {phone && <p style={{ color:S.t2, fontSize: 13 }}>{phone}</p>}
             <button onClick={() => setEditing(true)} style={{ background: "none", border: "none", color: S.pri, fontSize: 13, fontWeight: 600, cursor: "pointer", marginTop: 8 }}>
-              Edit Profile
+              {t(lang,"editProfile")||"Edit Profile"}
             </button>
           </>
         )}
       </div>
       <div style={{ ...S.crd, padding:20, cursor:"default" }}>
-        <div style={{ fontSize:15, fontWeight:700, marginBottom:14 }}>Notifications</div>
+        <div style={{ fontSize:15, fontWeight:700, marginBottom:14 }}>{t(lang,"notifications")||"Notifications"}</div>
         {[
-          { icon:"📱", label:"SMS",   desc:"Text message updates", on:sms,  set:setSms },
-          { icon:"📧", label:"Email", desc:"Email notifications",  on:eml,  set:setEml },
-          { icon:"🔔", label:"Push",  desc:"Push notifications",   on:push, set:setPush },
+          { icon:"📱", label:t(lang,"smsNotif")||"SMS",   desc:t(lang,"smsNotifDesc")||"Text message updates", on:sms,  set:setSms },
+          { icon:"📧", label:t(lang,"emailNotif")||"Email", desc:t(lang,"emailNotifDesc")||"Email notifications",  on:eml,  set:setEml },
+          { icon:"🔔", label:t(lang,"pushNotif")||"Push",  desc:t(lang,"pushNotifDesc")||"Push notifications",   on:push, set:setPush },
         ].map((n, i) => (
           <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom: i<2?14:0 }}>
             <div>

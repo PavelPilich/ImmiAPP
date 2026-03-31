@@ -205,7 +205,7 @@ export default function PageFormDetail() {
         <div style={{ fontSize:13, color:"#fbbf24", fontWeight:700, marginBottom:4 }}>{t(lang,"vsAttorney")||"vs. hiring a law firm"}</div>
 
         {/* Savings */}
-        <div style={{ fontSize:15, color:"#fbbf24", fontWeight:800, marginBottom:4 }}>{t(lang,"save")||"Save"} ${saveLow.toLocaleString()} — ${saveHigh.toLocaleString()}</div>
+        <div style={{ fontSize:15, color:"#fbbf24", fontWeight:800, marginBottom:4 }}>{t(lang,"saveMoney")||"Save"} ${saveLow.toLocaleString()} — ${saveHigh.toLocaleString()}</div>
         <div style={{ fontSize:14, color:"#fff", fontWeight:700, marginBottom:20 }}>{t(lang,"savingsNote")||"Attorney fees do not include USCIS government filing fees — this is only their service charge"}</div>
 
         {/* ── SECTION 4: Payment Actions ── */}

@@ -95,7 +95,7 @@ export default function PageFormFill() {
 
     return (
       <div key={fl.k} style={{ marginBottom:12 }}>
-        <label style={{ fontSize:13, fontWeight:600, color:"#fff" }}>{bt(lang, fl.k)}{isOptional ? " (optional)" : ""}</label>
+        <label style={{ fontSize:13, fontWeight:600, color:"#fff" }}>{bt(lang, fl.k)}{isOptional ? " "+(t(lang,"optional")||"(optional)") : ""}</label>
         {isDropdown ? (
           <select value={fd[fk] || ""} onChange={e => handleFieldChange(fk, e.target.value)} onClick={() => handleDropdownClick(fk, options, fl.t)} style={S.inp}>
             <option value="">—</option>

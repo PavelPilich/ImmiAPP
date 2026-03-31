@@ -59,7 +59,7 @@ export default function PageDashboard() {
       {/* Saved forms */}
       {savedForms && savedForms.length > 0 && (
         <div style={{ marginBottom: 16 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>My Forms</div>
+          <div style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>{t(lang,"myForms")||"My Forms"}</div>
           {savedForms.map((sf: any) => (
             <div key={sf.id} onClick={() => resumeForm(sf)} style={{ ...S.crd, padding: 14, display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ fontSize: 24 }}>📋</div>
@@ -75,7 +75,7 @@ export default function PageDashboard() {
                 color: statusColors[sf.status] || S.t2,
                 textTransform: "uppercase",
               }}>
-                {sf.status}
+                {t(lang, "status" + sf.status.charAt(0).toUpperCase() + sf.status.slice(1).replace(/_([a-z])/g, (_: string, c: string) => c.toUpperCase())) || sf.status}
               </div>
             </div>
           ))}
